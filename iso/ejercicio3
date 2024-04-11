@@ -1,0 +1,59 @@
+# Ejercicio 3 resuelto
+######################
+# 1.
+Get-Date
+# 2.
+Set-Content .\nombres.txt -Value "ana","alberto","braulio","zoraida","angelica","marcelo"
+# 3.
+gc .\nombres.txt
+# 4.
+gc .\nombres.txt | sort | Out-File .\nombres.2
+# 5.
+(gc .\nombres.2).count 
+# 6.
+gc .\nombres.txt | ? {$_ -match '^a'}
+# 7.
+gc .\nombres.txt | ? {$_ -match 'ra'}
+gc .\nombres.txt | ? {$_ -like '*ra*'}
+# 8.
+ac .\nombres.txt -Value 'braulio','luisa','ana','alberto' -PassThru
+# 9.
+gc .\nombres.txt | Sort | gu
+# 10.
+gc .\nombres.txt | ? {$_ -eq 'marcelo'} 2>Out-Null
+# 11.
+gc .\Out-Null
+# 12.
+(gci C:\Windows -Directory).Count
+# 13.
+(gci C:\Windows -File).Count
+(gci C:\Windows -Attributes Archive).Count
+# 14.
+(gci C:\Windows -Hidden -File).Count
+# 15.
+(gci C:\Windows -ReadOnly).Count
+# 16.
+(gci C:\Windows -File | ? $_.Length -lt 10000KB).Count
+# 17.
+(gci C:\Windows -File  -Depth 3 2> Out-Null | ? $_.Length -eq 0 ).Count
+# 18.
+(gci C:\Windows -Directory | ? {$_ -cmatch '^Pr'}).Count
+# 19.
+(gcm -CommandType Function | ? {$_ -cmatch 'Stop'}).Count
+# 20.
+gci C:\Windows -Directory | ? CreationTime -match '/2019 '
+# 21.
+gci C:\Windows -File | ? LastWriteTime -NotMatch  '/2021 '
+# 22.
+gci $HOME .*
+gci $HOME | ? Name -match '^\.'
+gci $HOME | ? Name -like '.*'
+# 23.
+(gci Env:).count
+# 24.
+gci Env:P*
+gci Env: | ? Name -match '^P'
+# 25.
+gci Env:USERNAME | Select value
+$env:USERNAME
+######################################

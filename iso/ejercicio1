@@ -1,0 +1,98 @@
+# Resolución ejercicio 1
+# Posicionarse en la carpeta personal
+Set-Location $HOME -PassThru
+#
+# 1. Crear las carpetas copias y ventas
+New-item -ItemType Directory .\copias, .\ventas
+#
+# 2. Renombrar la carpeta ventas por compras
+Rename-Item .\ventas .\compras -PassThru
+#
+# 3. Posicionarse en compras
+Set-Location .\compras -PassThru
+#
+# 4. Crear la carpeta 2024_compras y posicionarse en ella
+New-Item -ItemType Directory .\2024_compras
+Set-Location .\2024_compras -PassThru
+#
+# 5. Crear el fichero 01_enero_24.txt con la siguiente línea: “01-01-2024,136,15200”
+# Se añade al final del string `n que significa nueva línea.
+New-Item -ItemType File 01_enero_24.txt -Value "01-01-2024,136,15200`n"
+#
+# 6. Visualizar el contenido del fichero
+Get-Content .\01_enero_24.txt
+#
+# 7.Ver los atributos del fichero y su tamaño
+Get-ChildItem .\01_enero_24.txt
+#
+# 8. Hacer una copia del fichero –con el mismo nombre- dejándola en la carpeta copias
+Copy-Item .\01_enero_24.txt ..\..\copias -PassThru
+#
+# 9. Añadir al fichero 01_enero_24.txt la siguiente línea: “05-01-2024,98,12450 ”
+Add-Content .\01_enero_24.txt -Value “05-01-2024,98,12450” -PassThru
+#
+# 10. Visualizar el contenido del fichero
+Get-Content .\01_enero_24.txt
+#
+# 11. Eliminar el fichero 01_enero_24.txt de la carpeta copias
+Remove-Item ..\..\copias\01_enero_24.txt
+1º A.S.I.R. Implantación de Sistemas Operativos
+Prof. Rosa B. Mansilla Trillo [2] IES Xulián Magariños - Negreira
+#
+# 12. Realizar una copia de 2024_compras\01_enero_24.txt con el nombre de copia_enero.txt
+Copy-Item ..\2024_compras\01_enero_24.txt ..\2024_compras\copia_enero.txt -PassThru
+#
+# 13. Mover copia_enero.txt a la carpeta copias
+Move-Item ..\2024_compras\copia_enero.txt ..\..\copias -PassThru
+#
+# 14. Añadir al fichero 01_enero_24.txt la siguiente línea: “06-01-2024,44,7260”
+Add-Content .\01_enero_24.txt -Value “06-01-2024,44,7260” -PassThru
+#
+# 15. Visualizar el contenido del fichero
+Get-Content .\01_enero_24.txt
+#
+# 16. Crear la carpeta Informes y posicionarse.
+New-Item -ItemType Directory Informes
+Set-Location Informes -PassThru
+#
+# 17. Crear el fichero InformeEnero2024.txt
+New-item -ItemType File InformeEnero2024.txt
+#
+# 18. Añadir el título “Informe” al fichero
+Add-Content .\InformeEnero2024.txt -Value "Informe" -PassThru
+#
+# 19. Ver la cantidad de líneas que contiene y añadir el resultado al fichero InformeEnero2024.txt
+(Get-Content .\InformeEnero2024.txt).Count >> .\InformeEnero2024.txt
+#
+# 20. Ver el tamaño del fichero
+Get-ChildItem .\InformeEnero2024.txt
+# Más preciso sería
+(Get-ChildItem .\InformeEnero2024.txt).Length
+#
+# 21.Listar todas las entradas del directorio \ que comiencen con a, b, c ó d, y añadir el resultdo al fichero
+InformeEnero2024.txt
+Get-ChildItem \Windows\[a-d]* >> .\InformeEnero2024.txt
+# También se podría usar filtro|tubería|pipe
+Get-ChildItem \Windows\[a-d]* | Add-Content .\InformeEnero2024.txt -PassThru
+#
+1º A.S.I.R. Implantación de Sistemas Operativos
+Prof. Rosa B. Mansilla Trillo [3] IES Xulián Magariños - Negreira
+# 22. Listar todas las entradas del directorio \Windows que terminen con un número y guardarla en el fichero
+InformeEnero2024.txt
+Get-ChildItem \Windows\*[0-9] | Add-Content .\InformeEnero2024.txt -PassThru
+#
+# 24. Contar cuántas fuentes hay en \Windows\Fonts
+(Get-ChildItem \Windows\Fonts\*).Length
+# También se podría usar count
+(Get-ChildItem \Windows\Fonts\*).Count
+#
+#24. Contar cuántas fuentes hay en \Windows\Fonts que sean de MS
+(Get-ChildItem \Windows\Fonts\ms*).Count
+#
+# 25. Visualizar el contenido del fichero InformeEnero2024.txt, dejar una copia en la carpeta de copias y vaciar el
+fichero
+Get-Content .\InformeEnero2024.txt
+Copy-Item .\InformeEnero2024.txt ..\..\..\copias -PassThru
+Clear-Content .\InformeEnero2024.txt
+#
+#######################################################################

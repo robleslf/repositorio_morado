@@ -1,0 +1,58 @@
+# Ejercicio 4 - Resuelto
+########################
+# 1.
+sl C:\Windows
+# 2.
+gci -Force | fw  | Tee-Object $HOME\reporte1.txt  2> $HOME\Out-Null
+# 3.
+gci -Hidden -File | Select-Object Name, CreationTime
+# 4.
+gci -File  | Select-Object Name, Length, Mode
+# 5.
+gci -File | Sort Length | Select-Object Name, Length -Last 1
+# 6.
+gci -File | Sort Length | Select-Object Name, Length -First 1
+# 7.
+gci -File | ? Length -eq 0
+# 8.
+(gci -File | ? Length -eq 0).Count
+# 9.
+gci $HOME\????* -File | ? Length -eq 0 | Select-Object Name
+# 10.
+Get-Command -CommandType Cmdlet *-Item
+Get-Command -Noun item | ? CommandType -eq Cmdlet
+# 11.
+sl $HOME
+# 12.
+ni Ejer4 -ItemType Directory
+# 13.
+sl Ejer4
+# 14.
+ni uno, uno.txt, dos, dos.txt, tres, tres.txt
+# 15.
+gci |fw
+# 16.
+Get-Item uno.txt | Select-Object basename
+# 17.
+Get-Item uno.txt | Select-Object directoryName
+# 18.
+gci $HOME -File | ? LastWriteTime -lt (Get-Date).AddDays(-13)
+# 19.
+gci $HOME -File | ? LastWriteTime -le (Get-Date).AddMonths(-1) | ? Length -eq 0 | Remove-Item
+# 20.
+Set-Alias c Clear-Host
+# 21.
+c
+# 22.
+Get-Alias c*
+# 23.
+Get-Command -CommandType Cmdlet  copy*
+Get-Command -Verb copy | ? CommandType -eq Cmdlet
+# 24.
+Get-Command -CommandType alias sc
+Get-Command sc 
+# 25.
+Get-Item uno.txt | Select-Object Name, Attributes
+# 26.
+Get-Item ..\Ejer4 | Select-Object Name, Attributes
+###################################################

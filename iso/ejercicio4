@@ -1,5 +1,18 @@
 # Ejercicio 4 - Resuelto
 ########################
+# Corrección ejercicio 4 
+#  
+# punto 17   - corregir
+# Obtener la extensión del fichero uno.txt
+#
+Get-Item .\uno.txt | Select-Object extension
+#
+# Añadir punto 27
+# Mostrar la ruta del fichero .\uno.txt
+#
+Get-Item .\uno.txt | Select-Object DirectoryName
+#
+
 # 1.
 sl C:\Windows
 # 2.

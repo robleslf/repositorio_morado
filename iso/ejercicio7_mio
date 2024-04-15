@@ -1,0 +1,117 @@
+### Ejercicio 7
+
+# 1
+Set-Location $HOME
+
+# 2
+New-LocalGroup g-adm
+New-LocalGroup g-almacen
+New-LocalGroup g-contab
+
+# 3
+New-Item -ItemType File NuevasCuentas.csv
+
+# Remove-Item .\NuevasCuentas.csv
+
+
+Add-Content .\NuevasCuentas.csv -Value "Cuenta,Nombre completo,Descripcion,Grupo,Contrasenas",
+"a.alonso,Alba Alonso,Conserjería,g-adm,abc123*",
+"e.quito,Esteban Quito,Recepción,g-adm,abc123*",
+"j.diaz,Juan Díaz,Almacén,g-almacen,asd123&",
+"j.ruiz,Josefa Ruiz,Almacén,g-almacen,asd123&",
+"a.moreno,Andrea Moreno,Recepción,g-adm,abc123*",
+"e.gomez,Elena Gómez,Oficina,g-adm,abc123*",
+"a.benitez,Alfonso Benítez,Oficina,g-contab,qwe123=",
+"j.sanmartin,Julia Sanmartín,Oficina,g-contab,qwe123="
+
+Get-Content .\NuevasCuentas.csv
+
+# 4
+$usuarios = Import-Csv .\NuevasCuentas.csv 
+
+
+
+
+
+foreach ($i in $usuarios)
+{
+    $fecha = (Get-Date).AddYears(1)
+    $clave = ConvertTo-SecureString $i.Contrasenas -AsPlainText -Force
+    New-LocalUser -Name $i.Cuenta -Password $clave -Description $i.Descripcion -FullName $i.'Nombre completo' -AccountExpires $fecha -PasswordNeverExpires
+    Add-LocalGroupMember -Group Usuarios -Member $i.Cuenta
+    Add-LocalGroupMember -Group $i.Grupo -Member $i.Cuenta
+}
+
+
+# foreach ($i in $usuarios)
+# {
+# Remove-LocalUser $i.Cuenta
+# }
+
+
+# 8
+Get-LocalUser
+
+# 9
+Get-LocalUser | ? Enabled -EQ $true
+
+# 10
+Get-LocalUser | Where Enabled -EQ $false
+
+
+# 11
+Get-LocalGroupMember -Group usuarios | fl
+
+# 12
+
+Get-LocalGroupMember -Group g-contab
+
+#13
+Get-LocalGroupMember -Group g-almacen
+
+# 14
+Get-LocalGroupMember -Group g-adm
+
+# 15
+$miembros = Get-LocalGroupMember -Group g-adm
+$cantidad = $miembros.Count
+
+Write-Host "Hay $cantidad miembros en el grupo g-adm"
+
+
+# 16 DUDAS
+$miembros = Get-LocalUser | ? Description -NE "Almacén"
+$cantidad = $miembros.Count
+
+Write-Host "Hay $cantidad miembros que no son del grupo almacén"
+
+# 17 
+Get-LocalUser | ? FullName -Like '*[zZ]*'
+
+# 18
+Get-LocalUser | Where Name -Like '*en*'
+
+# 19
+
+Get-LocalUser | ? Description -EQ 'Oficina'
+
+# 20
+Get-LocalUser | Where Description -EQ 'Almacén'
+
+#21
+(Get-LocalUser | ? Description -EQ 'Recepción').Count
+
+# 22
+foreach ($i in $usuarios)
+{
+Remove-LocalUser $i.Cuenta
+}
+
+# 23
+Get-LocalUser
+
+# 24
+$cuentas_locales = Get-LocalUser
+$cantidad_cuentas = $cuentas_locales.Count
+
+Write-Host "Hay $cantidad_cuentas cuentas locales."

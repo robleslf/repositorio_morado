@@ -1,0 +1,67 @@
+# 1
+Set-Location c:\windows
+
+#2
+Get-ChildItem -ReadOnly
+Get-ChildItem -Attributes ReadOnly
+
+# 3
+Get-ChildItem | ? Name -Like '*.log'
+
+Get-ChildItem |? Name -CMatch '.log$'
+
+Get-ChildItem | ? Extension -EQ .log
+
+# 4 Listar todas las entradas que sean del año 2023
+Get-ChildItem -File | ? CreationTime  -Like '*/2023*' | select Name, CreationTime
+
+
+
+# 5
+New-Item -ItemType Directory ppal
+
+# 6
+Set-Location .\ppal
+# 7
+New-Item -ItemType File uno.txt, dos.txt, tres.txt 
+
+# 8
+Get-LocalUser |  ? PasswordLastSet -NE $null | Select-Object Name, PasswordLastSet
+
+#9
+Get-LocalUser |? PasswordLastSet -EQ $null | Select-Object Name,PasswordLastSet
+
+# 10
+Get-History
+
+#11
+Get-History 20
+
+# 12
+Get-Command -CommandType Cmdlet
+Get-Command | ? CommandType -EQ 'Cmdlet'
+
+# 13
+Set-Location $HOME
+Set-Location C:\Users\Bea
+
+# 14
+Get-ChildItem -Directory
+Get-ChildItem -Attributes Directory
+
+# 15
+New-Alias c  Clear-Host
+
+# 16
+c
+
+# 17
+$xx = (Get-Date).Day
+
+
+$yy = (Get-Date).Month
+
+Write-Host “Estamos a día $xx del mes de $yy”
+
+# 18
+

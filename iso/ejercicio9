@@ -1,0 +1,66 @@
+#    1. Visualizar la versión de powershell
+$Host
+$PSVersionTable 
+
+#    2. Ver el nombre y tamaño del fichero más grande que está en c:\Windows
+Get-ChildItem C:\Windows -File | Sort-Object Length | Select-Object -Last 1 Name,Length
+
+
+#    3. Listar los primeros 10 ficheros del directorio c:\windows  ordenados por tamaño.
+Get-ChildItem C:\Windows |Sort-Object Length | Select-Object -First 10
+
+
+#    4. ¿Cuántos procesos hay activos?
+(Get-Process).Count
+
+exit
+#    5. Iniciar el programa d e notepad, mediante comandos.
+Start-Process notepad
+
+
+#    6. Visualizar el ID del proceso de notepad.
+Get-Process notepad | Select-Object Id,Name
+
+#    7. Detener el programa notepad mediante su ID
+$id_notepad = (Get-Process notepad).Id
+
+Stop-Process -Id $id_notepad
+
+#    8. Abrir la url www.google.com, mediante comandos
+Start-Process "C:\Program Files (x86)\Microsoft\Edge\Application\msedge" -ArgumentList 'www.minijuegos.com'
+
+#    9. Visualizar los procesos abiertos por el navegador
+Get-Process | ? ProcessName -Like 'msedge'
+
+#    10. Cerrar el navegador por comandos
+Stop-Process -Name 'msedge'
+
+#    11. Ver que día de la semana es, mostrando el valor de una variables
+$variable_del_Puma = (Get-Date).DayOfWeek
+
+Write-Host "Today's $variable_del_Puma"
+
+#    12. Listar todos los usuarios locales
+Get-LocalUser
+
+
+#    13. Listar todos los miembros del grupo usuarios
+Get-LocalGroupMember -Group usuarios
+
+#    14. ¿Cuántos usuarios pertenecen al grupo usuarios?
+$variable_de_la_Urraka_con_k = (Get-LocalGroupMember -Group usuarios).Count
+
+Write-Host "Tenemos $variable_de_la_Urraka_con_k usuarios del grupo usuarios"
+
+#    15. Mostrar los nombres completos de los usuarios
+#    16. Listar todos los usuarios que nunca cambiaron su contraseña
+#    17. Listar todas las cuentas que están habilitadas
+#    18. ¿Cuántas cuentas están deshabilitadas?
+#    19. Crear los grupos g-uno, g-dos, g-tres
+#    20. Crear el usuario jacobo dentro del g-uno, con contraseña qwerty123-
+#    21. Listar todos los usuarios del g-uno
+#    22. Agregar el nombre completo “Jacobo Pereira” a la cuenta de jacobo y la descripción “jefe”
+#    23. Eliminar el grupo g-tres
+#    24. La cuenta de jacobo nunca expira.
+#    25. Eliminar a jacobo de g-uno
+#    26. Eliminar g-dos y g-uno

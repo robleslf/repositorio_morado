@@ -53,14 +53,42 @@ $variable_de_la_Urraka_con_k = (Get-LocalGroupMember -Group usuarios).Count
 Write-Host "Tenemos $variable_de_la_Urraka_con_k usuarios del grupo usuarios"
 
 #    15. Mostrar los nombres completos de los usuarios
+Get-LocalUser | Select-Object Name,FullName
+
 #    16. Listar todos los usuarios que nunca cambiaron su contraseña
+Get-LocalUser | Where PasswordLastSet -EQ $null
+
 #    17. Listar todas las cuentas que están habilitadas
+Get-LocalUser | ? Enabled -EQ $true
+
 #    18. ¿Cuántas cuentas están deshabilitadas?
+(Get-LocalUser | Where-Object Enabled -EQ $false).Count
+
 #    19. Crear los grupos g-uno, g-dos, g-tres
+New-LocalGroup g-uno
+New-LocalGroup g-dos
+New-LocalGroup g-tres
+
 #    20. Crear el usuario jacobo dentro del g-uno, con contraseña qwerty123-
+$clave = ConvertTo-SecureString "qwerty123-" -AsPlainText -Force
+New-LocalUser -Name jacobo -Password $clave
+Add-LocalGroupMember -Group g-uno -Member jacobo
+
 #    21. Listar todos los usuarios del g-uno
+Get-LocalGroupMember g-uno
+
 #    22. Agregar el nombre completo “Jacobo Pereira” a la cuenta de jacobo y la descripción “jefe”
+Set-LocalUser jacobo -FullName "Jacobo Pereira" -Description " jefe"
+
 #    23. Eliminar el grupo g-tres
+Remove-LocalGroup g-tres
+
 #    24. La cuenta de jacobo nunca expira.
+Set-LocalUser jacobo -AccountNeverExpires
+
 #    25. Eliminar a jacobo de g-uno
+Remove-LocalGroupMember -Group g-uno -Member jacobo
+
 #    26. Eliminar g-dos y g-uno
+Remove-LocalGroup g-dos
+Remove-LocalGroup g-uno

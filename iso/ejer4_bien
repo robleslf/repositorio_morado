@@ -1,0 +1,89 @@
+# Ejercicio 4 – Powershell Comandos básicos
+# 
+#     1. Posicionarse en C:\Windows
+Set-Location C:\Windows
+
+#     2. Obtener el nombre de todas las entradas incluídos ocultos, en 2 columnas, descartando errores y guardando en el fichero $HOME\reporte1.txt, a la vez que se visualiza.
+Get-ChildItem -Force | Format-Wide -Column 2 | Tee-Object $HOME\reporte1.txt 2>$HOME\Out-Null
+
+#     3. Listar el nombre y fecha de creación, de todos los ficheros ocultos.
+Get-ChildItem -Hidden | Select-Object Name,CreationTime
+
+#     4. Listar el nombre, tamaño y modo de todos los ficheros.
+Get-ChildItem -File | Select-Object Name,Length,Mode
+
+#     5. Listar el nombre y el tamaño del archivo de mayor tamaño
+Get-ChildItem -File | Sort-Object Length | ? Length -NE $null | Select-Object Name,Length -Last 1
+
+#     6. Listar el nombre y el tamaño del archivo de menor tamaño
+Get-ChildItem -File | Sort-Object Length | Select-Object Name,Length -First 1
+
+#     7. Listar todos los archivos que estén vacíos.
+Get-ChildItem -File | ? Length -EQ 0
+
+
+#     8. ¿Cuántos ficheros vacíos hay?
+(Get-ChildItem -File | Where-Object Length -EQ 0).Count
+
+#     9. Obtener el nombre de todos los ficheros de vuestra carpeta estén vacíos y que tengan al menos 4 caracteres en su nombre. 
+Get-ChildItem $HOME\????* -File | ? Length -EQ 0 | Select-Object Name
+
+
+#     10. Hacer una lista de todos los cmdlet que contengan el sustantivo ‘Item’ en su nombre.
+Get-Command -CommandType Cmdlet -Name '*item*'
+
+Get-Command -Noun item | ? CommandType -eq Cmdlet
+
+#     11. Posicionarse en vuestra carpeta personal
+Set-Location $HOME
+
+#     12. Crear el directorio ‘Ejer4’
+New-Item -ItemType Directory Ejer4
+
+#     13. Posicionarse en ‘Ejer4’
+Set-Location .\Ejer4
+
+#     14. Crear los ficheros uno, uno.txt, dos, dos.txt, tres, tres.txt.
+New-Item -ItemType File uno.txt,dos.txt,tres.txt
+
+#     15. Hacer un listado de 2 columnas con el nombre de las entradas
+Get-ChildItem | Format-Wide
+
+#     16. Obtener el nombre (sin extensión) del fichero uno.txt
+Get-ChildItem .\uno.txt | Select-Object BaseName
+
+
+#     17. Obtener la extensión del fichero uno.txt
+Get-Item uno.txt | Select-Object DirectoryName
+
+#     18. Listar de vuestra carpeta, todos los ficheros que hayan sido modificados hace más de 13 días.
+Get-ChildItem $HOME -File | ? LastWriteTime -LT (Get-Date).AddDays(13)
+
+#     19. Eliminar todos los ficheros vacíos de vuestro home, que haya sido modificado hace más de un mes.
+Get-ChildItem -File | ? Length -EQ 0 | ? LastWriteTime -LT (Get-Date).AddMonths(1) 
+ Gci $HOME –File | ? LastWriteTime –le (Get-Date).AddMonths(-1) | ? Length –eq 0 | Remove-Item
+
+#     20. Crear un alias para limpiar la pantalla
+New-Alias limpiaparabrisas Clear-Host
+
+#     21. Verifique que el alias funcione.
+limpiaparabrisas
+
+#     22. Listar todos los alias que comiencen por c
+Get-Alias -Name 'c*'
+
+#     23. Listar todos los cmdlet que tengan el verbo copy
+Get-Command -Verb copy | ? CommandType -EQ Cmdlet
+Get-Command -CommandType Cmdlet | ? Verb -EQ copy
+
+#     24. Visualizar a que comando apunta el alias sc
+Get-Alias sc
+
+#     25. Visualizar el nombre y los atributos de uno.txt
+Get-ChildItem .\uno.txt | Select-Object Name,Attributes
+
+#     26. Visualizar el nombre y los atributos de Ejer4
+Get-Item ..\Ejer4 | Select-Object Name,Attributes
+
+#  Mostrar la ruta del fichero .\uno.txt
+Get-ChildItem .\uno.txt | Select-Object DirectoryName

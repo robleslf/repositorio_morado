@@ -1,0 +1,110 @@
+#    Modificación de datos na BD traballadores:
+#    
+USE traballadores;
+
+SELECT * from centro;
+
+
+#        1. A empregada DOROTEA acaba de ter un fillo e debe actualizarse na BD.
+UPDATE empregado
+SET empFillos = empFillos + 1
+WHERE empNome LIKE 'DOROTEA';
+
+#        2. Modifica o nome do centro 20 para que sexa ‘ATENCIÓN AOS CLIENTES’.
+UPDATE centro
+SET cenNome = 'ATENCIÓN AOS CLIENTES'
+WHERE cenNumero = 20;
+
+#        3. O novo enderezo da SEDE CENTRAL será ‘RÚA NOVA, 25 RIBEIRA’.
+UPDATE centro
+SET cenEnderezo = "Calle de Juanillo 34"
+WHERE cenNome LIKE 'SEDE CENTRAL';
+
+
+#        4. Todos os departamentos teñen que multiplicar por 100 o seu presuposto.
+select * from departamento;
+
+UPDATE departamento
+SET depPresuposto = depPresuposto * 100;
+
+
+#        5. Os empregados do departamento 130 deben ter a extensión 480.
+UPDATE empregado
+SET empExtension = 480
+WHERE empDepartamento = 130;
+
+select * from empregado;
+
+
+#        6. Os empregados do departamento 111 que ingresaran na empresa antes de 1990 incrementaráselle a súa comisión nun 10%.
+UPDATE empregado
+SET empComision = empComision + empComision * 1.1
+WHERE YEAR(empDataIngreso) < 1990
+AND empDepartamento = 111;
+
+
+#        7. Os empregados do departamento SECTOR INDUSTRIAL cun salario menor a 1000 euros pasarán a cobrar 1050 euros.
+UPDATE empregado
+SET empSalario = 1050
+WHERE empSalario < 1050
+AND empDepartamento = (SELECT depNumero
+						FROM departamento
+						WHERE depNome LIKE 'SECTOR INDUSTRIAL');
+
+
+#        8. Os empregados do departamento DIRECCIÓN GENERAL cun salario menor a 1500 euros incrementaráselle dito salario en 200 euros.
+UPDATE empregado
+SET empSalario = empSalario + 200
+WHERE empSalario < 1500
+AND empDepartamento = (SELECT depNumero
+		FROM departamento
+        WHERE depNome LIKE 'DIRECCIÓN GENERAL');
+        
+select * from empregado;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#        9. Os empregados do departamento SECTOR INDUSTRIAL cun salario menor á media de salarios da empresa incrementaráselle a súa comisión nun 10%.
+UPDATE empregado
+SET empComision = empComision + (empComision * 0.1)
+WHERE empSalario < (SELECT * FROM (SELECT AVG(empSalario)
+						FROM empregado) X)
+AND empDepartamento = (SELECT depNumero
+						FROM departamento
+                        WHERE depNome LIKE "SECTOR INDUSTRIAL");
+                        
+
+
+
+#        10. Os empregados dos departamentos PERSONAL, PROCESO DE DATOS ou FINANZAS, cun salario menor á media de salarios do seu departamento incrementaráselle a súa comisión nun 10%.
+UPDATE empregado AS emp1
+SET empComsion = empComision * 0.1
+WHERE empDepartamento = ANY (SELECT depNumero
+							FROM departamento
+                            WHERE depNome IN ("PERSONAL","PROCESO DE DATOS","FINANZAS"))
+AND empSalario < (SELECT * FROM (SELECT AVG(X.empSalario)
+								FROM empregado AS emp2
+                                WHERE emp1.empNumero = emp2.empNumero) X);
+                                
+                                
+
+
+#        11. Os departamentos SECTOR SERVIZOS e SECTOR INDUSTRIAL van a ser asignados ao centro 80 (se non existe debes crealo antes) e o seu director será JULIO con tipo de director en funcións (valor F).
+
+
+#        12. Os empregados do departamento 130 con menos de 50 anos van a pasar ao departamento 110. 
+#        13. Os empregados cun salario maior a 2500 euros van pasar ao departamento DIRECCIÓN GENERAL.
+#        14. Actualiza o campo depEmpregados para que tome o valor correcto.
+#        15. Modifica o director de cada departamento de forma que pase a ser o empregado máis antigo do seu departamento con tipo Propietario (valor P).
+#        16. Aos empregados de cada departamento que ganen máis que o seu director redúcelles o salario en 200 euros e quítalle a comisión.

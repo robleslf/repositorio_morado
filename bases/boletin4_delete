@@ -1,0 +1,89 @@
+# 	Modificación de datos na BD traballadores:
+USE traballadores;
+SELECT * FROM centro;
+SELECT * FROM empregado;
+
+# 
+#     1. Borra o centro 50.
+DELETE
+FROM centro
+WHERE cenNumero = 50;
+
+#     2. Borra o centro REPARACIÓNS.
+DELETE 
+FROM centro
+WHERE cenNome Like 'REPARACIÓNS';
+
+#     3. Borra aqueles centros dos que descoñezamos o seu enderezo.
+DELETE
+FROM centro
+WHERE cenEnderezo IS NULL;
+
+#     4. Borra todos os empregados do departamento 120.
+DELETE 
+FROM empregado
+WHERE empNumero = 120;
+
+#     5. Borra todos os empregados do departamento de FINANZAS.
+################################################################################## DA ERROR
+DELETE
+FROM empregado
+WHERE empDepartamento = (SELECT depNumero
+							FROM departamento
+                            WHERE depNome LIKE 'FINANZAS');
+
+#     6. Supoñendo que a idade de xubilación son 60 anos, borra aqueles empregados que deberían estar xubilados.
+DELETE
+FROM empregado
+WHERE TIMESTAMPDIFF(YEAR, empDataNacemento, CURRENT_TIME()) >= 60;
+
+#     7. Borra aqueles empregados que teñan un salario anual (salario * 14 + comisión) superior ao salario anual do seu director de departamento.
+DELETE 
+FROM empregado AS em
+WHERE em.empSalario * 14 + em.empComision > (SELECT dir.empComision * 14 + dir.empComision
+											FROM empregado AS dir
+                                            WHERE dir.empNumero = (SELECT dep.depDirector
+																	FROM departamento AS dep
+                                                                    WHERE dep.depNumero = em.empDepartamento));
+
+#     8. Borra os empregados con fillos dos departamentos de DIRECC. COMERCIAL e do SECTOR INDUSTRIAL.
+DELETE 
+FROM empregado
+WHERE (empFillos IS NOT NULL
+OR empFillos > 0 )
+AND empDepartamento = (SELECT depNumero
+						FROM departamento
+                        WHERE depNome LIKE 'DIRECC. COMERCIAL'
+                        OR depNome LIKE 'SECTOR INDUSTRIAL');
+
+
+#     9. Borra os empregados con fillos dos departamentos de DIRECC. COMERCIAL e do SECTOR INDUSTRIAL, excepto aos que sexan directores do seu departamento.
+DELETE 
+FROM empregado AS emp
+WHERE (empFillos IS NOT NULL
+OR emp.empFillos > 0 )
+AND emp.empDepartamento = (SELECT dep.depNumero
+						FROM departamento AS dep
+                        WHERE dep.depNome LIKE 'DIRECC. COMERCIAL'
+                        OR dep.depNome LIKE 'SECTOR INDUSTRIAL')
+AND emp.empNumero != (SELECT dir.empNumero
+						FROM empregado AS dir
+                        WHERE dir.empNumero = dep.depDirector);
+					
+
+
+#     10. Borra aqueles departamentos que non teñen empregados.
+#        
+DELETE 
+FROM departamento 
+WHERE depEmpregados = 0
+OR depEmpregados IS NULL;
+
+
+DELETE 
+FROM departamento as dep
+WHERE EXISTS (SELECT COUNT(emp.empNumero)
+		FROM empregado AS emp
+        WHERE emp.empDepartamento = dep.depNumero
+        GROUP BY emp.empDepartamento
+        HAVING COUNT(empNumero) = 0);

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Par o Impar</title>
+</head>
+<body>
+    <div id="salida_contenedor"></div>
+
+    <script>
+        let numero = parseInt(prompt("Escribe un número a ver: "));
+        let contador = 0;
+
+
+        while(contador <= numero){
+            if (contador % 2 == 0) {
+                console.log("El número es par");
+                document.getElementById("salida_contenedor").innerHTML+="<h2 style='color: red';>"+contador+" es un número par.</h2>";
+            }
+
+            else  {
+                console.log("El número es impar");
+                document.getElementById("salida_contenedor").innerHTML+="<h2 style='color: green';>"+contador+" es un número impar.</h2>";
+            }
+
+            contador += 1;
+        }
+
+    </script>
+</body>
+</html>

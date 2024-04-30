@@ -10,21 +10,21 @@
     <script type="text/javascript">
         // let temperatura = "";
 
-        temperatura = parseInt(prompt("Por favor, introduce un número de mes..."));
+        temperatura = parseInt(prompt("¿Cuántos grados hace?"));
 
             if (temperatura < 10) {
                 console.log(temperatura+"ºC se considera una temperatura baja.");
-                document.getElementById("div_para_la_temperatura").innerHTML=temperatura+"ºC se considera una temperatura baja.";
+                document.getElementById("div_para_la_temperatura").innerHTML="<p>"+temperatura+"ºC se considera una temperatura baja.</p>";
             }
 
             else if (temperatura > 25) {
                 console.log(temperatura+"ºC se considera una temperatura alta.");
-                document.getElementById("div_para_la_temperatura").innerHTML=temperatura+"ºC se considera una temperatura alta.";
+                document.getElementById("div_para_la_temperatura").innerHTML="<p>"+temperatura+"ºC se considera una temperatura alta.</p>";
             }
 
             else {
                 console.log(temperatura+"ºC es una tempteratura media.");
-                document.getElementById("div_para_la_temperatura").innerHTML=temperatura+"ºC se considera una temperatura media.";
+                document.getElementById("div_para_la_temperatura").innerHTML="<p>"+temperatura+"ºC se considera una temperatura media</p>.";
 }
 
 

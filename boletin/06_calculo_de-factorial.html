@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cálculo del factorial</title>
+</head>
+<body>
+    <div "la-salida"></div>
+
+    <script type="text/javascript">
+        let numero = parseInt(prompt("Por favor, introduzca un número: "));
+
+        let numeroOrigianl = numero;
+
+        while(numero > 0) {
+            numero = numero*(numero-1);
+        }
+
+        console.log("El factorial de "+numeroOrigianl+" es "+numero);
+        document.getElementById("la-salida").innerHTML="El factorial de "+numeroOrigianl+" es "+numero;
+
+    </script>
+</body>
+</html>

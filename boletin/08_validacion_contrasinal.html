@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="salida-html"></div>
+
+    <script>
+        let contrasinal = prompt("Contraseña: ");
+
+        while(contrasinal.length<8){
+            contrasinal = prompt("La contraseña debe tener un mínimo de 8 caracteres");
+        }
+
+        console.log("Esa contraseña vale.");
+        document.getElementById("salida-html").innerHTML="Esa contraseña vale."
+        
+    </script>
+</body>
+</html>

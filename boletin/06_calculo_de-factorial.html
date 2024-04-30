@@ -1,25 +1,25 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cálculo del factorial</title>
+    <title>Document</title>
 </head>
 <body>
-    <div "la-salida"></div>
+    <div id="hachetemele"></div>
 
-    <script type="text/javascript">
-        let numero = parseInt(prompt("Por favor, introduzca un número: "));
+    <script>
+        let numero = parseInt(prompt("Introduzca un número si es tan amable: "));
+        let original = numero;
+        let factorialAcumulador = 1;
 
-        let numeroOrigianl = numero;
-
-        while(numero > 0) {
-            numero = numero*(numero-1);
+        while(numero>1){
+            factorialAcumulador = factorialAcumulador * numero;
+            numero--;
         }
 
-        console.log("El factorial de "+numeroOrigianl+" es "+numero);
-        document.getElementById("la-salida").innerHTML="El factorial de "+numeroOrigianl+" es "+numero;
-
+        console.log("El factorial de "+original+" es "+factorialAcumulador);
+        document.getElementById("hachetemele").innerHTML="El factorial de "+original+" es "+factorialAcumulador;
     </script>
 </body>
 </html>

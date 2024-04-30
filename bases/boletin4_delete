@@ -25,33 +25,37 @@ FROM empregado
 WHERE empNumero = 120;
 
 #     5. Borra todos os empregados do departamento de FINANZAS.
-################################################################################## DA ERROR
+################################################################################## DA ERROR de referencia de clave foránea; el empleado 310 es el director del dep 130, por lo que no nos permite borrarlo, por las condiciones que tenemos en la tabla; si hacemos un SHOW CREATE TABLE departamento puedes ver el por qué.
 DELETE
 FROM empregado
-WHERE empDepartamento = (SELECT depNumero
+WHERE empDepartamento = ANY (SELECT depNumero
 							FROM departamento
                             WHERE depNome LIKE 'FINANZAS');
+                            
+                            
 
 #     6. Supoñendo que a idade de xubilación son 60 anos, borra aqueles empregados que deberían estar xubilados.
 DELETE
 FROM empregado
 WHERE TIMESTAMPDIFF(YEAR, empDataNacemento, CURRENT_TIME()) >= 60;
+-- WHERE empDataNacemento < date_add(cur_date(), INTERVAL - 60 YEAR);
 
 #     7. Borra aqueles empregados que teñan un salario anual (salario * 14 + comisión) superior ao salario anual do seu director de departamento.
+-- Da error por clave foránea; en la libreta está como sería con JOIN
 DELETE 
 FROM empregado AS em
-WHERE em.empSalario * 14 + em.empComision > (SELECT dir.empComision * 14 + dir.empComision
+WHERE (em.empSalario * 14 + IFNULL(em.empComision,0)) > (select * from (SELECT dir.empComision * 14 + dir.empComision
 											FROM empregado AS dir
                                             WHERE dir.empNumero = (SELECT dep.depDirector
 																	FROM departamento AS dep
-                                                                    WHERE dep.depNumero = em.empDepartamento));
+                                                                    WHERE dep.depNumero = em.empDepartamento)) T);
 
 #     8. Borra os empregados con fillos dos departamentos de DIRECC. COMERCIAL e do SECTOR INDUSTRIAL.
 DELETE 
 FROM empregado
-WHERE (empFillos IS NOT NULL
+WHERE (empFillos IS NOT NULL -- El NULL en realidad sería que no sabemos si tiene hijos o no, así que mejor sin el IS NOT NULL, solo con la condición del 0.
 OR empFillos > 0 )
-AND empDepartamento = (SELECT depNumero
+AND empDepartamento = ANY (SELECT depNumero
 						FROM departamento
                         WHERE depNome LIKE 'DIRECC. COMERCIAL'
                         OR depNome LIKE 'SECTOR INDUSTRIAL');
@@ -60,13 +64,13 @@ AND empDepartamento = (SELECT depNumero
 #     9. Borra os empregados con fillos dos departamentos de DIRECC. COMERCIAL e do SECTOR INDUSTRIAL, excepto aos que sexan directores do seu departamento.
 DELETE 
 FROM empregado AS emp
-WHERE (empFillos IS NOT NULL
+WHERE (empFillos IS NOT NULL -- El NULL en realidad sería que no sabemos si tiene hijos o no, así que mejor sin el IS NOT NULL, solo con la condición del 0.
 OR emp.empFillos > 0 )
 AND emp.empDepartamento = (SELECT dep.depNumero
 						FROM departamento AS dep
                         WHERE dep.depNome LIKE 'DIRECC. COMERCIAL'
                         OR dep.depNome LIKE 'SECTOR INDUSTRIAL')
-AND emp.empNumero != (SELECT dir.empNumero
+AND emp.empNumero != (SELECT dir.empNumero -- Está subconsulta solo nos da un resultado porque solo hay un director por departamento.
 						FROM empregado AS dir
                         WHERE dir.empNumero = dep.depDirector);
 					
@@ -77,9 +81,9 @@ AND emp.empNumero != (SELECT dir.empNumero
 DELETE 
 FROM departamento 
 WHERE depEmpregados = 0
-OR depEmpregados IS NULL;
+OR depEmpregados IS NULL; -- Esto sobra por lo mismo que en el 7 y el 8.
 
-
+-- ESta no se si está bien, en la libreta están corregidos con JOIN y LEFT JOIN.
 DELETE 
 FROM departamento as dep
 WHERE EXISTS (SELECT COUNT(emp.empNumero)

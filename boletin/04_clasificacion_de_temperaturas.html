@@ -1,30 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Clasificación de temperaturas</title>
 </head>
 <body>
     <div id="div_para_la_temperatura"></div>
     <script type="text/javascript">
-        // let temperatura = "";
+        let temperatura = "";
 
         temperatura = parseInt(prompt("¿Cuántos grados hace?"));
 
             if (temperatura < 10) {
                 console.log(temperatura+"ºC se considera una temperatura baja.");
-                document.getElementById("div_para_la_temperatura").innerHTML="<p>"+temperatura+"ºC se considera una temperatura baja.</p>";
+                document.getElementById("div_para_la_temperatura").innerHTML="<p style='color:cyan;'>"+temperatura+"ºC se considera una temperatura baja.</p>";
             }
 
             else if (temperatura > 25) {
                 console.log(temperatura+"ºC se considera una temperatura alta.");
-                document.getElementById("div_para_la_temperatura").innerHTML="<p>"+temperatura+"ºC se considera una temperatura alta.</p>";
+                document.getElementById("div_para_la_temperatura").innerHTML="<p style='color:red;'>"+temperatura+"ºC se considera una temperatura alta.</p>";
             }
 
             else {
                 console.log(temperatura+"ºC es una tempteratura media.");
-                document.getElementById("div_para_la_temperatura").innerHTML="<p>"+temperatura+"ºC se considera una temperatura media</p>.";
+                document.getElementById("div_para_la_temperatura").innerHTML="<p style='color:green;'>"+temperatura+"ºC se considera una temperatura media.</p>";
 }
 
 

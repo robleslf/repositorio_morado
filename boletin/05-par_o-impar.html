@@ -1,31 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Par o Impar</title>
 </head>
 <body>
-    <div id="salida_contenedor"></div>
+    <div id="lista_impares"></div>
+    <div id="lista_pares"></div>
+    <div id="lista_completa"></div>
+
+
 
     <script>
         let numero = parseInt(prompt("Escribe un número a ver: "));
         let contador = 0;
 
 
+        console.log("Listado de números impares");
+        document.getElementById("lista_impares").innerHTML+="<h2><u>Lista de números impares</u></h2>";
+
+
+        console.log("Listado de números pares");
+        document.getElementById("lista_pares").innerHTML+="<h2><u>Lista de números pares</u></h2>";
+
+        console.log("Lista completa");
+        document.getElementById("lista_completa").innerHTML="<h2><u>Lista completa ordenada</u></h2>";
+
+ 
+
         while(contador <= numero){
             if (contador % 2 == 0) {
-                console.log("El número es par");
-                document.getElementById("salida_contenedor").innerHTML+="<h2 style='color: red';>"+contador+" es un número par.</h2>";
+                console.log("El número "+contador+" es par");
+                document.getElementById("lista_completa").innerHTML+="<h2 style='color: red';>"+contador+" es un número par.</h2>";
+                document.getElementById("lista_pares").innerHTML+=" | "+contador+" | ";
             }
 
             else  {
-                console.log("El número es impar");
-                document.getElementById("salida_contenedor").innerHTML+="<h2 style='color: green';>"+contador+" es un número impar.</h2>";
+                console.log("El número "+contador+" es impar");
+                document.getElementById("lista_completa").innerHTML+="<h2 style='color: green';>"+contador+" es un número impar.</h2>";
+                document.getElementById("lista_impares").innerHTML+=" | "+contador+" | ";
             }
 
             contador += 1;
         }
+
 
     </script>
 </body>

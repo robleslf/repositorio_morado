@@ -1,0 +1,168 @@
+USE NUESTRO_ZOOLOGICO;
+
+INSERT INTO ANIMAL (especie, nombre, genero, fecha_de_ingreso, fecha_de_nacimiento, fecha_de_fallecimiento) VALUES
+('Troglodytes gorilla', 'Copito de Nieve', 'Macho', '1999-06-15 12:00:05', NULL, NULL),
+('Canis lupus signatus', 'Xena', 'Hembra', '2000-12-07 11:45:12', NULL, NULL),
+('Ailuropoda melanoleuca qinlingensis', 'Po', 'Macho', '2001-01-01 18:16:43', '2001-01-01 18:16:41', NULL),
+('Ornithorhynchus anatinus', 'Perry', 'Macho', '2004-09-29 14:01:59', NULL, NULL),
+('Panthera leo', 'Margarita', 'Hembra', '2004-12-13 15:15:15', NULL, '2004-12-20 15:15:15'),
+('Elephas maximus maximus', 'Adelio', 'Macho', '2006-09-03 18:59:05', '2006-09-03 18:57:15', NULL),
+('Vombatus ursinus', 'Ratchet', 'Macho', '2009-12-13 15:15:10', NULL, NULL),
+('Aplysia punctata', 'Joe', 'Hermafrodita', '2010-03-18 16:14:25', NULL, NULL);
+
+-- SELECT * FROM ANIMAL;
+
+
+
+INSERT INTO ZONA (superficie,tipo,descripcion)
+VALUES
+(3000,'jungla','Destinada a una única especie de primates, para evitar conflictos, temperatura ambiente'),
+(3500,'jungla','Zona que emula jungla asiática, con abundante bambú; temperatura ambiente'),
+(2120,'río','Zona de agua dulce y una superficie rocosa; la temperatura no debe disminuir de los 15º'),
+(1578,'mar','Zona cubierta de agua salada destinada a fauna marina, piedras, algas, temperatura no inferior a 20º'),
+(100,'otra','Zona reservada para animales recién nacidos o ingresados, para pasar cuarentena antes de su introducción a una nueva zona'),
+(2750,'árida','Zona de llanura con apenas hierba'),
+(3200,'montaña','Zona con abundantes árboles y zonas cavernosas; temperatura ambiente');
+
+-- SELECT * FROM ZONA;
+
+
+INSERT INTO VIVE VALUES 
+(1, 5, '1999-06-15 12:00:05', '1999-06-30 13:07:45'),
+(1, 1, '1999-06-30 13:14:04', NULL),
+(2, 5, '2001-01-01 18:16:41', '2001-02-03 09:27:38'),
+(2, 7, '2001-02-03 09:29:38', NULL),
+(3, 5, '2001-01-01 18:18:52', '2001-01-10 12:55:12'),
+(3, 2, '2001-01-10 12:59:12', NULL),
+(5, 5, '2004-12-13 15:17:26', '2004-12-20 15:15:10'),
+(8, 4, '2010-03-18 16:25:56', NULL);
+
+-- SELECT * FROM VIVE;
+
+INSERT INTO EMPLEADO (codigo_empleado, nombre,apellido_1,apellido_2,direccion,DNI,nº_SS,codigo_empleado_administrador)
+VALUES
+(1, 'Pavel','Nedved',NULL,'Calle Santa Nonia 33','11111111A','19999999999',NULL),
+(4, 'Joanne','Rowling',NULL,'Travesía de la Candamia 93','44444444D','49999999999',NULL);
+
+SELECT * FROM EMPLEADO;
+
+INSERT INTO ADMINISTRADOR
+VALUES
+(1),
+(4);
+
+SELECT * FROM ADMINISTRADOR;
+
+
+
+INSERT INTO EMPLEADO (codigo_empleado, nombre,apellido_1,apellido_2,direccion,DNI,nº_SS,codigo_empleado_administrador)
+VALUES
+(2, 'Tadej','Pogaçart',NULL,'Avenida de los Abedules 167','22222222B','29999999999',1),
+(3, 'Alice Pleasance Liddell','Hargreaves',"Taylor",'Calle de Velázquez 14','33333333C','39999999999',1),
+(5, 'Halima','al-Hawila','González','Calle Frontón 14','55555555E','59999999999',4),
+(6, 'María','Ruano','Nicolás','Avenida de Carlo Ancelotti 14','66666666F','69999999999',4),
+(7, 'Paula','Ruano','Nicolás','Avenida de Carlo Ancelotti 14','66666667F','79999999999',4),
+(8, 'Cristiano', 'Messi', 'Neymar', 'Avenida de la Constitución 15', '88888888T', '89898989898', 1),
+(9, 'María Teresa','López','Vián','Calle Antonio Ralea 14','99999999Y','87845421225',4),
+(10, 'Francisco','Ratzinger','Segundo','Calle Romareda 99','78787878F','87878787878',1);
+
+SELECT * FROM EMPLEADO;
+
+INSERT INTO MANTENIMIENTO
+VALUES
+(9),
+(10);
+
+SELECT * FROM MANTENIMIENTO;
+
+
+INSERT INTO VETERINARIO
+VALUES
+(3),
+(6);
+
+
+INSERT FORMA_VETERINARIO
+VALUES
+(3,6,'2023/10/19','2023/11/19');
+
+
+
+INSERT INTO CUIDADOR
+VALUES
+(2),
+(5);
+
+
+INSERT INTO FORMA_CUIDADOR 
+VALUES 
+(5,2,'2023/10/19','2023/11/19');
+
+INSERT INTO MANTIENE VALUES
+(1,9,'2020-02-11 09:39:23', '2020-12-31 12:55:45'),
+(2,9,'2021-01-01 12:00:00', '2022-01-01 12:00:00'),
+(3,9,'2022-01-01 12:00:00', '2022-06-01 12:00:00'),
+(1,9,'2022-06-02 12:00:00', '2023-01-01 12:00:00'),
+(1,10,'2021-01-01 12:00:00', '2022-01-01 12:00:00'),
+(5,10,'2022-01-01 12:00:00', '2022-06-01 12:00:00'),
+(2,10,'2022-06-02 12:00:00', '2023-01-01 12:00:00');
+
+
+INSERT INTO AFECCION 
+VALUES
+('Insomnio','Leve','Trastorno'),
+('Toxoplasmosis','Leve','Otro'),
+('Fiebre aftosa','Grave','Enfermedad vírica'),
+('Aspergilosis','Grave','Otro'),
+('Enfermedad de Newcastle','Grave','Enfermedad vírica'),
+('Salmonelosis','Grave','Enfermedad bacteriana');
+
+
+INSERT INTO TRATAMIENTO (nombre_afeccion,medicamento,dosis,frecuencia,observaciones,fecha_inicio,fecha_fin,codigo_animal,cod_empleado_veterinario)
+VALUES
+('Insomnio','Focusín',125,8,'Después de cada toma','2017/02/10 09:55:21','2017/02/20',1,3),
+('Toxoplasmosis','Reparina',500,24,'Antes de dormir','2017/02/10 09:55:21','2017/02/20',1,3),
+('Insomnio','Focusín',200,8,'Después de cada toma','2018/11/04 09:55:21','2018/12/04',2,6),
+('Fiebre aftosa','Aftosil',2000,8,NULL,'2018/11/04 11:34:12','2018/11/20',6,3),
+('Toxoplasmosis','Toxoplasmosín',3000,12,NULL,'2022/02/02 12:22:22','2022/02/22',6,6),
+('Insomnio','Focusín',150,8,NULL,'2023/02/10 09:35:55','2018/02/20',1,6);
+
+
+INSERT INTO DIAGNOSTICA
+VALUES
+(1,'Insomnio','2017-02-10',3),
+(2,'Insomnio','2018-11-04',6),
+(6,'Fiebre aftosa','2018-11-04',3),
+(6,'Toxoplasmosis','2022-02-02',6),
+(1,'Insomnio','2023-02-10',6),
+(4,'Insomnio','2023-02-10',3);
+
+INSERT INTO SINTOMAS
+VALUES
+('Insomnio','Incapacidad para dormir'),
+('Insomnio','Cansancio diurno'),
+('Insomnio','Irratibilidad'),
+('Insomnio','Depresión'),
+('Fiebre aftosa','Fiebre'),
+('Fiebre aftosa','Ampollas en la lengua, ubres y pezuñas');
+
+
+
+INSERT INTO VACUNA
+VALUES
+(2,6),
+(1,3),
+(5,6),
+(5,3),
+(4,3),
+(5,1);
+
+
+INSERT INTO DIETA (observacviones)
+VALUES
+(NULL),
+(NULL),
+('No dar en ayunas'),
+(NULL),
+(NULL),
+(NULL);

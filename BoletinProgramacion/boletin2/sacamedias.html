@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcular la media</title>
+</head>
+<body>
+    <div id="resultado"></div>
+
+    <script>
+
+        // Las partes comentadas son para introducir las notas mediante prompt, pero da problemas cuando hace la media con números decimales.
+        
+        function sacaMedias(conjunto) {
+            let acumulador = 0;
+            for (let i = 0; i<conjunto.length; i++) {
+                acumulador += conjunto[i];
+            }
+            return acumulador / conjunto.length;
+        }
+
+
+
+
+
+        // let numeroDeNotas= prompt("¿Cuántas notas diferentes tiene el array?");
+        let sumaNotas = 0.0;
+        let mediaFinal = '';
+        // let arrayDeNotas = [];
+        let arrayDeNotas = [9,8,7];
+        let posicionIndice = 0;
+
+
+
+        // while(posicionIndice<numeroDeNotas){
+        //     arrayDeNotas[posicionIndice] = parseInt(prompt("Dime la "+(posicionIndice+1)+"ª nota"));
+
+        //     posicionIndice++;
+        // }
+        
+        mediaFinal = sacaMedias(arrayDeNotas);
+
+        document.getElementById("resultado").innerHTML="<p>Las notas son: "+arrayDeNotas+".</p>";
+
+        document.getElementById("resultado").innerHTML +="<p>La media final de las notas es: <strong style='color:red;'>" + mediaFinal + "</strong></p>";
+
+    </script>
+</body>
+</html>

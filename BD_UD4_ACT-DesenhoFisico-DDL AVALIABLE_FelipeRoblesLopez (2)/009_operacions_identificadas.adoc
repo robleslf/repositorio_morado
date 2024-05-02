@@ -1,0 +1,45 @@
+= Operaciones identificadas
+
+|=== 
+| Número | Nome Operación | Descripción | Táboas Afectadas | Requiere Transacción 
+| 1        |    Inserción de animal           |  Insertar un nuevo registro de un animal recién nacido o ingresado en el zoo           |   ANIMAL               |  NO             
+|  2      |  Borrado de un animal              |  Eliminación del registro de un animal del que ya no sea necesario mantener sus datos           |  ANIMAL                |  NO                    
+|   3     |     Modificación de animal           |   Modificación de los datos de un animal que no sean correctos          |  ANIMAL                   | NO                      
+|  4      |   Insertar zona             |    Añadir una nueva zona del zoológico a la base de datos       |    ZONA              |    NO
+|  5       |       Borrado de zona         |  Eliminar un registro de una zona que haya sido destruida o eliminada del zoo           |    ZONA              |  NO 
+|  6      |       Modificación de zona         |    Modificar los datos de una zona que haya sido remodelada o cuyos datos no sean correctos        |    ZONA           |   NO
+|  7      |    Inserción en VIVE            |  Insertar un registro nuevo en la tabla cuando un animal entre a una zona por primera vez         |   VIVE               | NO  
+|    8    |                |             |                  |   
+|        |   Modificación en VIVE            |   Añadir fecha de salida en la zona en la que va a dejar de vivir un animal y añadir un nuevo registro con la zona y fechas de su nueva zona          |      VIVE            |   SÍ
+|    9    |   Modificación definitiva VIVE            | Insertar fecha de salida de un animal que abandona el zoo por cualquier causa            |  VIVE                | NO  
+|    10    |    Inserción de empleado           |     Añadir un registro de un nuevo empleado y su código de empleado a la tabla de su puesto de trabajo        |      EMPLEADO, ADMINISTRADOR, VETERINARIO, CUIDADOR, CAJERO, MANTENIMIENTO            |   SÍ
+|  11      |  Modificación de empleado              |  Modificación en los datos de un empleado           |    EMPLEADO              |   NO
+|  12      |  Borrado de un empleado              | Eliminar un registro de un empleado            | EMPLEADO                  | NO   
+|  13      | Ascenso de Empleado                |  Ajustar a NULL la columna codigo_empleado_administrador del empleado en EMPLEADO y añadir su codigo_empleado en la tabla ADMINISTRADOR           |  EMPLEADO, ADMINISTRADOR                |   SÍ
+|   14     | Cambio puesto empleado                  | Eliminar el código de un empleado en la tabla de su puesto y añadirlo en la de su nuevo puesto              | VETERINARIO, MANTENIMIENTO, CUIDADOR, CAJERO                 |   SÍ
+| 15       |  Nuevo veterinario              | Añadir el código de empleado a VETERINARIO y su registro correspondiente en la tabla FORMA_VETERINARIO para iniciar su formación            |    VETERINARIO, FORMA_VETERINARIO              |  SÍ 
+|  16      |   Nuevo cuidador             |  Añadir el código de empleado a CUIDADOR y a continuación su correspondiente registro en FORMA_CUIDADOR           | CUIDADOR, FORMA_CUIDADOR                      |SÍ   
+|  17      |Añadir registro MANTIENE                |Insertar un nuevo registro en MANTIENE             | MANTIENE                  |NO   
+|        |                |             |                  |   
+|        |                |             |                  |   
+|        |                |             |                  |   
+|        |                |             |                  |   
+|        |                |             |                  |   
+|        |                |             |                  |   
+|        |                |             |                  |   
+|        |                |             |                  |   
+|        |                |             |                  |   
+|        |                |             |                  |   
+|        |                |             |                  |   
+|        |                |             |                  |   
+|        |                |             |                  |   
+|        |                |             |                  |   
+|        |                |             |                  |   
+|        |                |             |                  |   
+|        |                |             |                  |   
+|        |                |             |                  |   
+|        |                |             |                  |   
+|        |                |             |                  |   
+|        |                |             |                  |   
+|        |                |             |                  |                     
+|===

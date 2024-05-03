@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscaelementos</title>
+</head>
+<body>
+    <div id="contenedorMuyBueno"></div>
+
+    <script>
+
+        let miArrayConStrings = ["Uno","Dos","Tres","Cuatro","Cinco","Cinco más uno","Siete","Ocho"];
+        let palabraBuscada = prompt("Vamos a buscar una palabra");
+
+
+        function buscaElementos(arrayDeCadenas){
+            let contador = 0;
+            for (let i = 0; i<arrayDeCadenas.length; i++){
+                if (palabraBuscada == arrayDeCadenas[i]){
+                    document.getElementById("contenedorMuyBueno").innerHTML+=palabraBuscada+" aparece en la posición "+i+" del array";
+                    contador+=1;
+                }
+
+                else{
+                    continue;
+                }
+            }
+        }
+
+        buscaElementos(miArrayConStrings);
+
+    </script>
+</body>
+</html>

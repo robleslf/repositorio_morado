@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+</head>
+<body>
+    <div id="resultado_suma"></div>
+    <div id="resultado_resta"></div>
+    <div id="resultado_multiplicacion"></div>
+    <div id="resultado_division"></div>
+
+    <script type="text/javascript">
+        // Declaración de variables
+            let num1 = 18;
+            let num2 = 20;
+            let suma;
+            let resta;
+            let multiplicacion;
+            let division;
+            let salida_consola_suma;
+            let salida_consola_resta;
+            let salida_consola_division;
+            let salida_consola_multpilicacion;
+            let salida_html_suma;
+            let salida_html_resta;
+            let salida_html_multiplicacion;
+            let salida_html_division;
+
+
+        // Implementación del algoritmo
+
+            // Suma
+            suma = num1 + num2;
+
+            // Resta
+            resta = num1 - num2;
+
+            // Multiplicación
+            multiplicacion = num1 * num2;
+
+            // División
+            division = num1 / num2
+
+        
+        
+        // Salida por consola
+            
+        salida_consola_suma = "La suma de " + num1 + " y " + num2 + " es igual a " + suma;
+            
+        salida_consola_resta = "La resta de " + num1 + " y " + num2 + " es igual a " + resta;
+            
+        salida_consola_multpilicacion = "El producto de " + num1 + " y " + num2 + " es igual a " + multiplicacion;
+        
+        salida_consola_division = "La división de " + num1 + " y " + num2 + " es igual a " + division;
+
+        console.log(salida_consola_suma);
+        console.log(salida_consola_resta);
+        console.log(salida_consola_multpilicacion);
+        console.log(salida_consola_division);
+
+
+        // Salida por HTML
+        salida_html_suma = "<h2>" + salida_consola_suma + "</h2>"
+        salida_html_resta = "<h2>" + salida_consola_resta  + "</h2>"
+        salida_html_multiplicacion = "<h2>" + salida_consola_multpilicacion + "</h2>"
+        salida_html_division = "<h2>" + salida_consola_division + "</h2>"
+
+
+        document.getElementById("resultado_suma").innerHTML=salida_html_suma;
+
+        document.getElementById("resultado_resta").innerHTML=salida_html_resta;
+
+        document.getElementById("resultado_multiplicacion").innerHTML=salida_html_multiplicacion;
+
+        document.getElementById("resultado_division").innerHTML=salida_html_division;
+
+    </script>
+</body>
+</html>

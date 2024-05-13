@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="012.css">
+</head>
+<body>
+    <h1 id="header1">Os Tres Porquiños</h1>
+    
+    <p id="p1">Soplarei e soplarei e a túa casa <span>derrubarei</span></p>
+
+    <br />
+
+    <button id="destroy" onclick="DestroyPorkS()">Destroy</button>
+
+    <script>
+        console.log(document.getElementById("p1").outerHTML);
+
+        console.log(document.getElementById("p1").innerHTML);
+
+        console.log(document.getElementById("p1").textContent);
+
+
+        // Cambio do id usando o id
+        document.getElementById("p1").id="p3"; 
+        console.log(document.getElementById("p3").outerHTML);
+
+        // Cambio do id utilizando el método setAttribute
+        document.getElementById("p3").setAttribute("id","p1");
+
+        // Engadir contido
+        document.write('<p id="p2"> E a casiña derribouse</p>');
+
+
+        // Cambiar propiedades CSS
+        document.getElementById("header1").style.color="green";
+
+
+        document.getElementsByTagName('p')[0].style.backgroundColor="steelblue"; // El 0 indica que queremos aplicar el estilo solo al primer párrafo.
+
+        document.getElementsByTagName('p')[0].style.padding="20px";
+
+
+        // Cambiar estilos inyectando CSS
+
+        document.getElementsByTagName("p")[0].style.cssText='background-color:lightblue;padding=50px';
+
+
+        // Eventos
+
+        function DestroyPorkS(){
+            document.getElementById("p1").innerHTML="Nin porquiños nin lerias";
+            document.getElementById("header1").style.color="red";
+            document.getElementById("header1").innerHTML="Carapuchiña Vermella";
+            document.getElementById("p2").innerHTML="aquí chega...Carapuchiña Vermella!!!!!";
+
+            let elementP = document.getElementsByTagName("p");
+
+        for (let i = 0; i<elementP.length; i++){
+            elementP[i].style.cssText="color:white;background-color:red;padding:50px";
+        }
+        }
+
+
+
+
+        
+
+
+
+    </script>
+
+
+
+
+</body>
+</html>

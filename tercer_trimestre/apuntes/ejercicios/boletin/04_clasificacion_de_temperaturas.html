@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="div_para_la_temperatura"></div>
+    <script type="text/javascript">
+        // let temperatura = "";
+
+        temperatura = parseInt(prompt("¿Cuántos grados hace?"));
+
+            if (temperatura < 10) {
+                console.log(temperatura+"ºC se considera una temperatura baja.");
+                document.getElementById("div_para_la_temperatura").innerHTML="<p>"+temperatura+"ºC se considera una temperatura baja.</p>";
+            }
+
+            else if (temperatura > 25) {
+                console.log(temperatura+"ºC se considera una temperatura alta.");
+                document.getElementById("div_para_la_temperatura").innerHTML="<p>"+temperatura+"ºC se considera una temperatura alta.</p>";
+            }
+
+            else {
+                console.log(temperatura+"ºC es una tempteratura media.");
+                document.getElementById("div_para_la_temperatura").innerHTML="<p>"+temperatura+"ºC se considera una temperatura media</p>.";
+}
+
+
+    </script>
+</body>
+</html>
+

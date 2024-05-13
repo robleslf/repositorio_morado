@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="013_.css">
+</head>
+<body>
+    <div id="space"></div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function(){
+            
+            
+            let posX = 10.0; // Posición Inicial en X
+            let posY = 10.0; // Posición Inicial en Y
+
+            var space = document.getElementById("space");
+
+            if (space){
+                space.style.position="absolute"
+                updatePosition(); 
+
+                function handleKeyPress(event){
+                    const step=10; // Píxeles que se moverá el objeto en cada pulsación de tecla
+
+
+                    let containerWidth = document.body.clientWidth; // Ancho del contenedor
+                    let containerHeight = document.body.clientHeight; // Alto del contenedor
+
+                    switch(event.key){
+                        case "ArrowUp":
+                            if(posY>containerHeight-space.offsetHeight){
+                                posY-=step;
+                            }
+                            break;
+
+                        case "ArrowLeft":
+                            if(posX>0){
+                                posX-=step;
+                            }
+                            break;
+
+                        case "ArrowRight":
+                            if(posX<containerWidth-space.offsetWidth){
+                                posX+=step;
+                            }
+                            break;
+
+                        case "ArrowDown":
+                            if(posY>0){
+                                posY+=step;
+                            }
+                            break;
+
+                        
+                    }
+                
+                updatePosition();
+                    
+                }
+
+            function updatePosition(){
+                space.style.left = posX+"px";
+                space.style.top = posY + "px";
+            }
+
+
+            document.addEventListener("keydown",handleKeyPress);
+
+            
+        }
+
+
+        else {
+            console.error("No encuentro el elemento #space");
+        }
+
+        }
+    )
+    </script>
+</body>
+</html>

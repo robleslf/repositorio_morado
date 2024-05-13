@@ -1,0 +1,60 @@
+<div id="resultado1"> </div>
+<div id="resultado2"> </div>
+<div id="resultado3"> </div>
+<div id="resultado4"> </div>
+
+<script type="text/javascript">
+
+    //Declaracion de variables
+    let num1 = 1891;
+    let num2 = 13;
+    let suma;
+    let resta;
+    let multiplicacion;
+    let division;
+    let salidaDatosConsola1="";
+    let salidaDatosConsola2="";
+    let salidaDatosConsola3="";
+    let salidaDatosConsola4="";
+    let salidaDatosHTML1="";
+    let salidaDatosHTML2="";
+    let salidaDatosHTML3="";
+    let salidaDatosHTML4="";
+
+    //Implementacion Algoritmica
+
+    //suma
+    suma = num1 + num2;
+
+    //resta
+    resta = num1 - num2;
+
+    //multiplicacion
+    multiplicacion = num1 * num2;
+
+    //division
+    division = num1 / num2;
+
+    //Salida de datos Consola
+    salidaDatosConsola1 = "La suma de " + num1 + " + " + num2 + " es = " + suma;
+    salidaDatosConsola2 = "La resta de " + num1 + " - " + num2 + " es = " + resta;
+    salidaDatosConsola3 = "La multipliacion de " + num1 + " * " + num2 + " es = " + multiplicacion;
+    salidaDatosConsola4 = "La division de " + num1 + " / " + num2 + " es = " + division;
+
+    console.log(salidaDatosConsola1);
+    console.log(salidaDatosConsola2);
+    console.log(salidaDatosConsola3);
+    console.log(salidaDatosConsola4);
+
+    //Salida de datos HTML
+    salidaDatosHTML1="<b>La suma de " + num1 + " + " + num2 + " es = </b> " + suma;
+    salidaDatosHTML2="<b>La resta de " + num1 + " - " + num2 + " es = </b> " + resta;
+    salidaDatosHTML3="<b>La multipliacion de " + num1 + " * " + num2 + " es = </b> " + multiplicacion;
+    salidaDatosHTML4="<b>La division de " + num1 + " / " + num2 + " es = </b> " + division;
+
+    document.getElementById("resultado1").innerHTML=salidaDatosHTML1;
+    document.getElementById("resultado2").innerHTML=salidaDatosHTML2;
+    document.getElementById("resultado3").innerHTML=salidaDatosHTML3;
+    document.getElementById("resultado4").innerHTML=salidaDatosHTML4;
+
+</script>

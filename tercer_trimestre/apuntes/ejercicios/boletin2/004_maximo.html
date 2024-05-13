@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Máximo</title>
+</head>
+<body>
+    <div id="pantalla"></div>
+
+    <script>
+        let conjuntoNumerico = [14,95,90,62,109,93];
+        guardaMaximo = 0;
+
+        for(i=0; i<=conjuntoNumerico.length; i++){
+            if(conjuntoNumerico[i]>guardaMaximo){
+                guardaMaximo = conjuntoNumerico[i];
+            }
+            else{
+                continue;
+            }
+        }
+
+        document.getElementById("pantalla").innerHTML=guardaMaximo;
+
+    </script>
+
+</body>
+</html>

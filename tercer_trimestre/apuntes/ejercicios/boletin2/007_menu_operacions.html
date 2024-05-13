@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="salidaHTML"></div>
+
+    <script>
+        
+
+        function sumaNumeros(a,b){
+            return a+b;
+        }
+
+        function restaNumeros(a,b){
+            return a-b;
+        }
+
+        function multiplicaNumeros(a,b){
+            return a*b;
+        }
+        
+
+        function divideNumeros(a,b){
+            return a/b;
+        }
+
+        function preguntaOperacion(){
+            respuesta = parseInt(prompt("¿Qué operación quieres hacer?\n[1] Suma \n[2] Resta \n [3] Multiplicación\n[4] División"));
+                
+                if (respuesta == 1){
+                    let num1 = parseInt(prompt("Dime el primer número: "));
+                    let num2 = parseInt(prompt("Dime el segundo número: "));
+                    let resultado = sumaNumeros(num1,num2);
+                    document.getElementById("salidaHTML").innerHTML=resultado;
+                }
+
+                else if (respuesta == 2){
+                    let num1 = parseInt(prompt("Dime el primer número: "));
+                    let num2 = parseInt(prompt("Dime el segundo número: "));
+                    let resultado = restaNumeros(num1,num2);
+                    document.getElementById("salidaHTML").innerHTML=resultado;
+                }
+
+                else if (respuesta == 3){
+                    let num1 = parseInt(prompt("Dime el primer número: "));
+                    let num2 = parseInt(prompt("Dime el segundo número: "));
+                    let resultado = multiplicaNumeros(num1,num2);
+                    document.getElementById("salidaHTML").innerHTML=resultado;
+                }
+
+                else if (respuesta == 4){
+                    let num1 = parseInt(prompt("Dime el primer número: "));
+                    let num2 = parseInt(prompt("Dime el segundo número: "));
+                    let resultado = divideNumeros(num1,num2);
+                    document.getElementById("salidaHTML").innerHTML="<h2 style='color:blue;'>El resultado es "+resultado+"</h2>";
+                }
+
+                else{
+                    preguntaOperacion();
+                }
+
+        }
+
+    
+    
+        preguntaOperacion();
+
+
+    
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscaelementos</title>
+</head>
+<body>
+    <div id="contenedorMuyBueno"></div>
+
+    <script>
+
+        let miArrayConStrings = ["Uno","Dos","Tres","Cuatro","Cinco","Cinco más uno","Siete","Ocho"];
+        let numeroDePalabras= prompt("¿Cuántas palabras tiene el array?");
+        let posicionInd = 0;
+        
+        
+        while(posicionInd<numeroDePalabras){
+            miArrayConStrings[posicionInd] = prompt("Dime la "+(posicionInd+1)+"ª palabra");
+            
+            posicionInd++;
+        }
+        
+        let palabraBuscada = prompt("Vamos a buscar una palabra");
+
+        function buscaElementos(arrayDeCadenas){
+            let contador = 0;
+            for (let i = 0; i<arrayDeCadenas.length; i++){
+                
+                if (palabraBuscada == arrayDeCadenas[i]){
+                    contador +=1;
+
+                }
+
+                else{
+                    continue;
+                }
+
+                }
+                
+                if(contador>1){
+                    document.getElementById("contenedorMuyBueno").innerHTML="<h2><i style='color:blue;'>"+palabraBuscada+"</i> aparece "+contador+" veces</h2>";
+                }
+
+                else if(contador==1){
+                    document.getElementById("contenedorMuyBueno").innerHTML="<h2><i style='color:blue;'>"+palabraBuscada+"</i> aparece "+contador+" vez</h2>";
+                }
+
+                else {
+                    document.getElementById("contenedorMuyBueno").innerHTML="<h2><i style='color:red;'>"+palabraBuscada+"</i> no aparece, o aparacere 0 veces</h2>";
+                }
+            
+        }
+
+        buscaElementos(miArrayConStrings);
+
+    </script>
+</body>
+</html>

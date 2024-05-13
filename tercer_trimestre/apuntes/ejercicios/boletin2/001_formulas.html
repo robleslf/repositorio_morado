@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div id="contenedorMuyBueno"></div>
+
+    <script>
+        // Escribe unha serie de funcións que devolvan coma saida os seguintes cálculos xeométricos:
+
+        // ● Área dunha circunferencia a partires do radio
+        function areaCirculo(radio) {
+            const pi = 3.1415926536;
+            const area = pi * radio * radio;
+            return area;
+        }
+            // Ejemplo de uso de la función
+            document.getElementById("contenedorMuyBueno").innerHTML="<h2>1) El área del círculo correspondiente al radio proporcionado es "+areaCirculo(parseInt(prompt("1) Área del círculo: dime su radio")))+" cm²</h2>";
+
+
+
+
+
+        // ● Volume dun cono tomando como parámetros de entrada radio e altura
+        function volumenCono(radio,altura){
+            return 3.1415926536 * radio * radio * altura / 3;
+        }
+
+            // Ejemplo de uso de la función
+            document.getElementById("contenedorMuyBueno").innerHTML+="<h2>2) El volumen del cono correspondiente al radio y altura proporcionados es "+volumenCono(parseInt(prompt("2) Volumen del cono: dime el radio en cm")),parseInt(prompt("Dime la altura en cm")))+" cm³</h2>";
+
+
+
+
+
+        // ● Volume dun ortoedro a partir dos tres lados característicos
+        function volumenOrtoedro(alto,ancho,largo){
+            return ancho*largo*alto;
+        }
+
+            // Ejemplo de uso de la función
+            document.getElementById("contenedorMuyBueno").innerHTML+="<h2>2) El volumen del ortoedro correspondiente a los tres lados proporcionados es "+volumenOrtoedro(parseInt(prompt("3) Volumen del ortoedro: dime el ancho en cm")), parseInt(prompt("Dime el largo en cm")), parseInt(prompt("Dime el alto en cm")))+" cm³</h2>";
+
+
+    </script>
+</body>
+</html>

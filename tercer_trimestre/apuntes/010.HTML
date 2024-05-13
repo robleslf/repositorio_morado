@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <ul id="dias"></ul>
+    <script type="text/javascript">
+        let diasSemana = ["lunes","martes","miércoles","jueves","viernes","sábado","domingo"]
+
+
+        for(let i=0; i< diasSemana.length; i++)
+        {
+            console.log(diasSemana[i]);
+            document.getElementById(dias).innerHTML+="<li>"+diasSemana[i]+"</li>";
+        };
+    </script>
+
+</body>
+</html>

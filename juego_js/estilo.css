@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
+
+
+body{background-image: url('https://alk3r.wordpress.com/wp-content/uploads/2016/11/3ef5d-1478555468441.gif?w=700');
+background-attachment: fixed;
+background-repeat: no-repeat;
+background-size: cover;
+}
+
+
+/* #divPajaro {
+
+  width: 65px;
+  height: 80px;
+  border-style: none;
+  border-bottom-left-radius: 10px;
+  border-top-right-radius: 10px;
+  padding: 10px;
+  font-weight: bold;
+  background-image: url("https://steamuserimages-a.akamaihd.net/ugc/958586341173600765/019F0AFA8BF24C501666B04A7F1FD61D233C6E32/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: rgba(0, 0, 0, 1);
+  transform: rotate(0deg);
+
+
+} */
+
+
+.pajaroVolante {
+  width: 65px;
+  height: 80px;
+  border-style: none;
+  padding: 10px;
+  font-weight: bold;
+  background-image: url(assets/img/movimientopajaro.gif);
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: absolute;
+  transform: rotate(0deg);
+}
+
+.pajaroVolante_2 {
+  width: 65px;
+  height: 80px;
+  border-style: none;
+  padding: 10px;
+  font-weight: bold;
+  background-image: url(assets/img/federica.gif);
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: absolute;
+  transform: rotate(0deg);
+}
+
+.container {
+  overflow: hidden;
+}
+
+/* .enemigos {
+  background: url(assets/img/illustration-of-pixel-cloud-icon-png.webp) repeat-x;
+  height: 150px;
+  width: 150px;
+  animation: slide 30s linear infinite;
+} */
+
+@keyframes slide{
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-1692px, 0, 0);
+  }
+} 
+
+#play_boton {
+  width: 100px;
+  height: 100px;
+  color:antiquewhite;
+  background-color: blueviolet;
+  border-radius: 50%;
+  padding: 20px;
+  font-family: "Orbitron", monospace, sans-serif;
+  position: absolute;
+  top: 400px;
+  left: 800px;
+  background-image: url(assets/img/movimientopajaro.gif);
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+#play_boton_2 {
+  width: 100px;
+  height: 100px;
+  color:antiquewhite;
+  background-color: blueviolet;
+  border-radius: 50%;
+  padding: 20px;
+  font-family: "Orbitron", monospace, sans-serif;
+  position: absolute;
+  top: 400px;
+  left: 1000px;
+  background-image: url(assets/img/federica.gif);
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+#number {
+  font-size:50px;
+  color:#434343;
+}

@@ -1,0 +1,21 @@
+# 1
+
+# 2
+New-ADOrganizationalUnit -Name ou-grupos -Path "DC=dominio,DC=felipe" -Description "Grupos de la tarea1" -ProtectedFromAccidentalDeletion $true -PassThru
+
+Get-ADOrganizationalUnit -Filter * | Select-Object Name
+
+$OUdegrupos = Get-ADOrganizationalUnit -Filter {Name -like "ou-grupos"}
+Rename-ADObject -Identity $OUdegrupos.DistinguishedName -NewName "tarea1-grupos"
+
+
+
+New-ADGroup -Name "g-jefes2" -Path "OU=tarea1-grupos,DC=dominio,DC=felipe" -GroupCategory Security -GroupScope DomainLocal -PassThru
+
+New-ADGroup -Name "g-ceo" -Path "OU=tarea1-grupos,DC=dominio,DC=felipe" -GroupCategory Security -GroupScope DomainLocal -PassThru
+
+New-ADGroup -Name "g-finanzas" -Path "OU=tarea1-grupos,DC=dominio,DC=felipe" -GroupCategory Security -GroupScope DomainLocal -PassThru
+
+New-ADGroup -Name "g-comercial" -Path "OU=tarea1-grupos,DC=dominio,DC=felipe" -GroupCategory Security -GroupScope DomainLocal
+
+New-ADGroup -Name "g-producción" -Path "OU=tarea1-grupos, DC=dominio,DC=felipe" -GroupCategory Security -GroupScope DomainLocal

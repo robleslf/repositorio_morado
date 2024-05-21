@@ -1,3 +1,7 @@
+// Interruptor para personaje escogido
+let interruptor = 0;
+
+
 // Movimiento del Pájaro
 document.addEventListener("DOMContentLoaded", function () {
   let posX = 10.0; // Posición inicial X
@@ -14,31 +18,85 @@ document.addEventListener("DOMContentLoaded", function () {
     let maxPosX = containerWidth - spaceWidth;
     let maxPosY = containerHeight - spaceHeight;
 
+    // switch (event.key) {
+    //     case "ArrowUp":  
+    //             if (posY > 0) {
+    //                 posY -= step;
+    //             }
+    //             break;
+    //     case "ArrowDown":
+    //         // if (posY < maxPosY) {
+    //             posY += step;
+    //             posX += step;
+    //         // }
+    //         // break;
+    //     case "ArrowLeft":
+    //         if (posX > 0) {
+    //             posX -= step;
+    //         }
+    //         break;
+    //     case "ArrowRight":
+    //         if (posX < maxPosX) {
+    //             posX += step;
+    //         }
+    //         break;
+    // }
+
+
     switch (event.key) {
-        case "ArrowUp":
-            if (posY > 0) {
-                posY -= step;
-                if (posX > 0) {
-                  posX -= step;
-              }
-              break;
-            }
-            break;
+        case "ArrowUp":  
+                if(interruptor==1){
+                    if (posY > 0) {
+                        posY -= step;
+                    }
+                    break;
+                }
+                else if(interruptor==2){
+                    if (posY > 0) {
+                        posY -= step;
+                        posX -= step;
+                    }
+                    break;
+                }
         case "ArrowDown":
-            // if (posY < maxPosY) {
+            if(interruptor==1){
                 posY += step;
-            // }
-            // break;
-        case "ArrowLeft":
-            if (posX > 0) {
+            }
+            else if(interruptor ==2){
+                posY += step;
                 posX -= step;
             }
             break;
-        case "ArrowRight":
-            if (posX < maxPosX) {
-                posX += step;
+        case "ArrowLeft":
+            if(interruptor==1){
+                if (posX > 0) {
+                    posX -= 3*step;
+                }
+                break;
+            }
+            else if(interruptor==2){
+                if (posX > 0) {
+                    posX -= 3*step;
+                }
+                break;
             }
             break;
+
+            
+        case "ArrowRight":
+            if(interruptor==1){
+                if (posX < maxPosX) {
+                    posX += step;
+                    }
+                    break;
+            }
+            else if(interruptor==2){
+                if (posX < maxPosX) {
+                    posX += 3*step;
+                    }
+                    break;
+            }
+                
     }
 
     updatePosition();
@@ -61,7 +119,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   document.getElementById("play_boton").addEventListener("click", function() {
 
-      
+      interruptor = 1;
 
       var divPajaro = document.getElementById("divPajaro");
       divPajaro.classList.add("pajaroVolante"); 
@@ -78,18 +136,21 @@ document.addEventListener("DOMContentLoaded", function () {
       var musiquita = document.getElementById("musiquitaNES");
       musiquita.play();
 
-      //  Contador (fuente: https://codepen.io/evilnapsis/pen/wBZBgv)
-var n = 0;
-var l = document.getElementById("number");
-window.setInterval(function(){
-  l.innerHTML = "Puntuación: " + n;
-  n++;
-},0.50);
-
-      
-  });
+    //  Contador (fuente: https://codepen.io/evilnapsis/pen/wBZBgv)
+        var n = 0;
+        var l = document.getElementById("number");
+        window.setInterval(function(){
+          l.innerHTML = "Puntuación: " + n;
+          n++;
+        },0.50);
+        
+              
+          });
 
 document.getElementById("play_boton_2").addEventListener("click", function() {
+
+
+    interruptor = 2;
 
     var divPajaro = document.getElementById("divPajaro");
     divPajaro.classList.add("pajaroVolante_2"); 
@@ -119,6 +180,7 @@ document.getElementById("play_boton_2").addEventListener("click", function() {
 });
 
 });
+
 
 
 

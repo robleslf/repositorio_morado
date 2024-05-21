@@ -1,6 +1,17 @@
 // Interruptor para personaje escogido
 let interruptor = 0;
 
+// Enemigos
+const enemigo_1 = document.getElementById('enemigo_1');
+const enemigo_2 = document.getElementById('enemigo_2');
+const enemigo_3 = document.getElementById('enemigo_3');
+
+// Esto es lo que hace que la posición top del css de los enemigos vaya cambiando para que salgan en diferentes alturas
+function cambiar_la_Y_de_enemigos(enemigo) {
+    const randomTop = Math.floor(Math.random() * (700 - 100 + 1)) + 100;
+    enemigo.style.top = randomTop + 'px';
+}
+
 
 // Movimiento del Pájaro
 document.addEventListener("DOMContentLoaded", function () {
@@ -54,7 +65,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 else if(interruptor==2){
                     if (posY > 0) {
                         posY -= step;
-                        posX -= step;
+                        if (posX > 0) {
+                            posX -= 3*step;
+                        }
+                        break;
                     }
                     break;
                 }
@@ -64,7 +78,10 @@ document.addEventListener("DOMContentLoaded", function () {
             }
             else if(interruptor ==2){
                 posY += step;
-                posX -= step;
+                if (posX > 0) {
+                    posX -= 3*step;
+                }
+                break;
             }
             break;
         case "ArrowLeft":
@@ -121,6 +138,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
       interruptor = 1;
 
+      document.body.style.backgroundImage = "url('https://alk3r.wordpress.com/wp-content/uploads/2016/11/3ef5d-1478555468441.gif?w=700')";
+
       var divPajaro = document.getElementById("divPajaro");
       divPajaro.classList.add("pajaroVolante"); 
       // divPajaro.style.position = "absolute";
@@ -143,14 +162,24 @@ document.addEventListener("DOMContentLoaded", function () {
           l.innerHTML = "Puntuación: " + n;
           n++;
         },0.50);
+
+    // El intervalo este hace que la función que cambia la posición Y del enemigo se ejecute cada 4 segundos, que es lo que dura la animación de desplazamiento X de los enemigos -- DEBE IR JUSTO ANTES DE LA LÍNEA DE ABAJO QUE AÑADE LA CLASE AL ENEMIGO PARA EL CSS
+    setInterval(() => {
+        cambiar_la_Y_de_enemigos(enemigo_1);
+    }, 4000);
+   
+    document.getElementById("enemigo_1").classList.add("gifs_de_pajaritos");
+
         
               
-          });
+    });
 
 document.getElementById("play_boton_2").addEventListener("click", function() {
 
 
     interruptor = 2;
+
+    document.body.style.backgroundImage = "url('https://alk3r.wordpress.com/wp-content/uploads/2016/11/3ef5d-1478555468441.gif?w=700')";
 
     var divPajaro = document.getElementById("divPajaro");
     divPajaro.classList.add("pajaroVolante_2"); 
@@ -165,7 +194,7 @@ document.getElementById("play_boton_2").addEventListener("click", function() {
     boton_de_play.style.display = "none";
 
 
-    var musiquita = document.getElementById("musiquitaNES");
+    var musiquita = document.getElementById("musiquitaNES_2");
     musiquita.play();
 
     //  Contador (fuente: https://codepen.io/evilnapsis/pen/wBZBgv)
@@ -176,10 +205,18 @@ document.getElementById("play_boton_2").addEventListener("click", function() {
     n++;
     },0.50);
 
+    // El intervalo este hace que la función que cambia la posición Y del enemigo se ejecute cada 4 segundos, que es lo que dura la animación de desplazamiento X de los enemigos -- DEBE IR JUSTO ANTES DE LA LÍNEA DE ABAJO QUE AÑADE LA CLASE AL ENEMIGO PARA EL CSS
+    setInterval(() => {
+        cambiar_la_Y_de_enemigos(enemigo_1);
+    }, 4000);
+   document.getElementById("enemigo_1").classList.add("gifs_de_pajaritos");
+   
     
 });
 
+
 });
+
 
 
 

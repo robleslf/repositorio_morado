@@ -1,0 +1,106 @@
+# 1. Listar todas las cuentas de dominio con sus ubicaciones
+Get-ADUser -SearchBase 'dc=dominio,dc=felipe' -Filter * | Select-Object Name,DistinguishedName
+
+# 2. Listar el DN de todas las cuentas que estén deshabilitadas
+Get-ADUser -Filter {Enabled -eq $false} | Select-Object Name,DistinguishedName,Enabled
+
+# 3. Hacer un listado de nombres y teléfonos de todos los jefes
+$jefes = Get-ADGroupMember g-jefes
+
+foreach($i in $jefes){
+    Get-ADUser -Identity ($i).DistinguishedName -Properties * | Select-Object Name,MobilePhone,HomePhone,OfficePhone
+}
+
+
+
+# 4. Listar todos los grupos a los que pertenece Ismael Caceres
+Get-ADUser -Filter {Name -like 'Ismael Cáceres'} -Properties * | Select-Object MemberOf
+
+# 5. ¿Cuántos usuarios están en el dpto comercial?
+(Get-ADGroupMember g-comercial).count
+
+# 6. Hacer una lista de las 2 formas de conectarse todos los usuarios del dominio
+Get-ADUser -Filter * -Server dominio.felipe | Select-Object Name,SamAccountName,UserPrincipalName
+
+
+# 7. ¿Cuántos equipos hay en el dominio?
+(Get-ADComputer -Filter *).Count
+
+# 8. ¿Cuántos equipos están en el dpto. Finanzas?
+$departamento_finanzas = (Get-ADOrganizationalUnit -Filter {Name -like 'ou-finanzas'}).DistinguishedName
+
+(Get-ADComputer -Filter * -SearchBase $departamento_finanzas).Count
+
+# 9. Hacer una lista del teléfono particular de cada uno de los jefes y exportarla al fichero tel.csv
+$JEFES = Get-ADGroupMember g-jefes
+
+ $lista_telefonica = foreach($i in $JEFES) {
+    Get-ADUser -Identity ($i).distinguishedName -Properties * | Select-Object Name,MobilePhone,HomePhone
+    }
+
+$lista_telefonica | Export-Csv -Path tel.csv
+
+
+# 10. Listar el login de cada uno de los usuarios que no tengan configurado el título.
+Get-ADUser -Filter {Title -notlike '*'} -Properties * | Select-Object SamAccountName,UserPrincipalName
+
+
+
+# 11. Listar toda la información del usuario Pablo Castro
+Get-ADUser -Filter {Name -like 'Pablo Castro'} -Properties *
+
+
+# 12. Listar la fecha de expiración de las cuentas.
+Get-ADUser -Filter * -Properties * | Select Name,AccountExpirationDate
+
+
+# 13. Listar todas las cuentas que no estén protegidas por eliminación accidental
+Get-ADUser -Filter * -Properties * | Where-Object ProtectedFromAccidentalDeletion -eq $false | Select-Object Name, ProtectedFromAccidentalDeletion
+
+# 14. Listar la fecha de creación de las cuentas de RRHH
+Get-ADUser -Filter * -SearchBase "OU=RRHH,OU=ou-ceo,DC=dominio,DC=felipe" -Properties * | Select-Object Name,Created
+
+
+
+# 15. Mostrar todas las cuentas que estén habilitadas
+Get-ADUser -Filter * | Where-Object Enabled -eq true | Select-Object Name,Enabled
+
+# 16. Buscar todas las cuentas del dpto. Finanzas que contengan ‘r’ en su apellido.
+$basebusqueda = (Get-ADOrganizationalUnit -Filter {name -like 'ou-finanzas'}).distinguishedName
+
+Get-ADUser -Filter {Surname -like '*r*'} -SearchBase $basebusqueda
+
+
+
+# 17. Buscar todas las DN y SAN de todos los usuarios cuyo nombre comience con ‘o’
+Get-ADUser -Filter {Name -like 'o*'} | Select-Object SamAccountName,DistinguishedName
+
+# 18. Listar todos los SAN de todas las cuentas que finalicen en ‘a’
+Get-ADUser -Filter {SamAccountName -like '*a'} | Select-Object SamAccountName
+
+# 19. Listar todos los DN de los usuarios que no tengan configurado su domicilio particular
+Get-ADUser -Filter {StreetAddress -notlike '*'} | Select-Object DistinguishedName,StreetAddress
+
+
+
+# 20. Listar todos los SAN de los usuarios que no tengan configurado sus iniciales
+Get-ADUser -Filter {Initials -notlike '*'} | Select-Object SamAccountName,Initials
+
+# 21. Listar todos los nombres de usuarios que nunca hicieron login
+Get-ADUser -Filter {LastLogonDate -notlike '*'} | Select-Object Name
+
+Get-ADUser -Filter {LastLogon -eq 0} | Select-Object Name
+
+# 22. Listar todos los nombres y códigos postales de los usuarios del dpto comercial
+Get-ADUser -Filter * -SearchBase "OU=ou-comercial,DC=dominio,DC=felipe" | Select-Object Name,PostalCode
+
+
+# 23. Listar todos los apellidos y nombres de todos los usuarios del dpto producción
+$base_de_busqueda = Get-ADOrganizationalUnit -Filter {name -like 'ou-produccion'}
+
+
+Get-ADUser -Filter * -SearchBase $base_de_busqueda | Select-Object Surname,GivenName
+
+# 24. Listar toda la información de los grupos a los que pertenece Omar Marcos
+Get-ADUser -Identity o.marcos -Properties MemberOf | Select-Object -ExpandProperty  MemberOf
+

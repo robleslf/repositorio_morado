@@ -1,0 +1,257 @@
+####################### 1
+New-ADOrganizationalUnit -Name "ou-ceo" -Path "DC=dominio,DC=felipe" -Description "OU de los ceo" -ProtectedFromAccidentalDeletion $true
+
+New-ADOrganizationalUnit -Name "ou-finanzas" -Path "DC=dominio,DC=felipe" -Description "OU del departamento de finanzas" `
+-ProtectedFromAccidentalDeletion $true
+
+New-ADOrganizationalUnit -Name "ou-comercial" -Path "DC=dominio,DC=felipe" -Description "OU del departamento comercial" `
+-ProtectedFromAccidentalDeletion $true
+
+New-ADOrganizationalUnit -Name "ou-produccion" -Path "DC=dominio,DC=felipe" -Description "OU del departamento de producción" `
+-ProtectedFromAccidentalDeletion $true
+
+# Comprobación:
+Get-ADOrganizationalUnit -Filter {Name -like 'ou-*'} -Properties * | Select-Object Name,Description
+
+
+############################### 2
+New-ADOrganizationalUnit -Name "ou-grupos-tarea" -Description "La ou buena para guardar los grupos" -Path "DC=dominio,DC=felipe" `
+-ProtectedFromAccidentalDeletion $true
+
+Get-ADOrganizationalUnit -Identity "OU=ou-grupos-tarea,DC=dominio,DC=felipe"
+
+
+
+New-ADGroup -Name "g-jefes" -Path "OU=ou-grupos-tarea,DC=dominio,DC=felipe" -GroupCategory Security `
+-Description "Grupo de los jefes" -GroupScope DomainLocal
+
+New-ADGroup -Name "g-ceo" -Path "OU=ou-grupos-tarea,DC=dominio,DC=felipe" -GroupCategory Security -GroupScope DomainLocal `
+-Description "Grupo de los ceo"
+
+New-ADGroup -Name "g-finanzas" -Path "OU=ou-grupos-tarea,DC=dominio,DC=felipe" -GroupCategory Security -GroupScope `
+DomainLocal -Description "grupo de finanzas"
+
+New-ADGroup -Name "g-comercial" -Path "OU=ou-grupos-tarea,DC=dominio,DC=felipe" -GroupCategory Security -GroupScope `
+DomainLocal -Description "grupo de comerciales"
+
+New-ADGroup -Name "g-produccion" -Path "OU=ou-grupos-tarea,DC=dominio,DC=felipe" -GroupCategory Security -GroupScope `
+DomainLocal -Description "grupo de producción"
+
+
+
+Get-ADGroup -Filter {Name -like 'g-*'} -Properties * | Select-Object Name,Description
+
+
+# 3
+$clave = ConvertTo-SecureString "abc123." -AsPlainText -Force
+
+
+New-ADUser -Name "Ismael Cáceres" `
+           -Path "OU=ou-finanzas,DC=dominio,DC=felipe" `
+           -SamAccountName "i.caceres" `
+           -UserPrincipalName "i.caceres@dominio.felipe" `
+           -GivenName "Ismael" `
+           -Surname "Cáceres" `
+           -AccountPassword $clave `
+           -PasswordNeverExpires $true `
+           -CannotChangePassword $true `
+           -Enabled $true `
+           -EmailAddress "i.caceres@dominio.felipe" `
+           -MobilePhone "654123654" `
+           -HomePhone "987456321" `
+           -Title "Licenciado en Finanzas" `
+           -Description "CEO" `
+           -City "Negreira" `
+           -Country "ES" `
+           -OfficePhone "654123698"
+
+Get-ADUser -Filter {Name -like "Ismael Cáceres"} | Remove-ADObject
+
+
+                
+New-ADUser -Name "Miguel Montes" `
+            -Path "OU=ou-ceo,DC=dominio,DC=felipe" `
+           -SamAccountName "m.montes" `
+            -UserPrincipalName "m.montes@dominio.felipe" `
+            -AccountPassword $clave `
+            -CannotChangePassword $true `
+            -PasswordNeverExpires $true `
+            -GivenName "Miguel" `
+            -Surname "Montes" `
+            -MobilePhone 652365124 `
+            -HomePhone 987414545 `
+            -OfficePhone 985632623 `
+            -EmailAddress "m.montes@dominio.felipe" `
+            -Title "Licenciado en finanzas" `
+            -Description "Cargo de no se qué" `
+            -City "Negreira" `
+            -Country "ES" `
+            -Enabled $true
+
+
+
+Get-ADUser -Filter {Name -like "Miguel Montes"} | Remove-ADObject
+
+
+New-ADUser -Name "Cris Vega" `
+            -Path "OU=ou-finanzas,DC=dominio,DC=felipe" `
+            -SamAccountName "c.vega" `
+            -UserPrincipalName "c.vega@dominio.felipe" `
+            -AccountPassword $clave `
+            -CannotChangePassword $true `
+            -PasswordNeverExpires $true `
+            -GivenName "Cris" `
+            -Surname "Vega" `
+            -MobilePhone 635252145 `
+            -HomePhone 985621452 `
+            -OfficePhone 965231478 `
+            -Title "Licenciada en finanzas" `
+            -Description "Hola buenas" `
+            -City "Negreira" `
+            -Country "ES" `
+            -Enabled $true
+            
+
+New-ADUser -Name "Emilia Fuentes" `
+            -Path "OU=ou-comercial,DC=dominio,DC=felipe" `
+            -SamAccountName "e.fuentes" `
+            -UserPrincipalName "e.fuentes@dominio.felipe" `
+            -AccountPassword $clave `
+            -CannotChangePassword $true `
+            -PasswordNeverExpires $true `
+            -Enabled $true `
+            -GivenName "Emilia" `
+            -Surname "Fuentes" `
+            -MobilePhone 636321454 `
+            -EmailAddress "e.fuentes@dominio.felipe" `
+            -HomePhone 965232145 `
+            -OfficePhone 965412365 `
+            -City "Negreira" `
+            -Country "ES" `
+            -Description "Hola" `
+            -Title "Licenciada en comerciales"
+
+New-ADUser -Name "Luis Blanco" `
+            -Path "OU=ou-comercial, DC=dominio,DC=felipe" `
+            -SamAccountName "l.blanco" `
+            -UserPrincipalName "l.blanco@dominio.felipe" `
+            -AccountPassword $clave `
+            -CannotChangePassword $true `
+            -PasswordNeverExpires $true `
+            -Enabled $true `
+            -GivenName "Luis" `
+            -Surname "Blanco" `
+            -MobilePhone 665458545 `
+            -HomePhone 985412478 `
+            -Title "Licenciada en Marketing" `
+            -Description "Un empleado ejemplar" `
+            -OfficePhone 999564521 `
+            -EmailAddress "l.blanco@dominio.felipe" `
+            -City "Negreira" `
+            -Country "ES" 
+            
+
+New-ADUser -Name "Óscar Nigro" `
+            -Path "OU=ou-comercial,DC=dominio,DC=felipe" `
+            -SamAccountName "o.nigro" `
+            -UserPrincipalName "o.nigro@dominio.felipe" `
+            -AccountPassword $clave `
+            -CannotChangePassword $true `
+            -PasswordNeverExpires $true `
+            -Enabled $true `
+            -GivenName "Óscar" `
+            -Surname "Nigro" `
+            -MobilePhone 623125484 `
+            -HomePhone 98745129563 `
+            -EmailAddress "o.nigro@dominio.felipe" `
+            -Title "asdfg" `
+            -City "Negreira" `
+            -Country "ES" `
+            -Description "ASDFG"
+
+
+
+New-ADUser -Name "Omar Marcos" `
+            -Path "OU=ou-produccion,DC=dominio,DC=felipe" `
+            -SamAccountName "o.marcos" `
+            -UserPrincipalName "o.marcos@dominio.felipe" `
+            -AccountPassword $clave `
+            -CannotChangePassword $true `
+            -PasswordNeverExpires $true `
+            -Enabled $true `
+            -GivenName "Omar" `
+            -Surname "Marcos" `
+            -MobilePhone 645198319 `
+            -HomePhone 987121259 `
+            -OfficePhone 987526242 `
+            -EmailAddress "o.marcos@dominio.felipe" `
+            -Title "asdgf" `
+            -Description "adsfh" `
+            -City "Negreira" `
+            -Country "ES"
+
+
+New-ADuser -Name "Ana Barca" `
+           -Path "ou=ou-produccion,DC=dominio,dc=felipe" `
+           -SamAccountName "a.barca" `
+            -UserPrincipalName "a.barca@dominio.felipe" `
+            -AccountPassword $clave `
+            -CannotChangePassword $true `
+            -PasswordNeverExpires $true `
+            -Enabled $true `
+            -GivenName "Ana" `
+            -Surname "Barca" `
+            -MobilePhone 665239439 `
+            -HomePhone 987141514 `
+            -OfficePhone 654125896 `
+            -Office 9 `
+            -Description "industrial" `
+            -Title "Ingeniera agrónoma" `
+            -City "Negreira" `
+            -Country "ES"
+
+
+New-ADUser -Name "Tomás Tapia" `
+            -Path "ou=ou-produccion,dc=dominio,dc=felipe" `
+            -SamAccountName "t.tapia" `
+            -UserPrincipalName "t.tapia.felipe" `
+            -AccountPassword $clave `
+            -CannotChangePassword $true `
+            -PasswordNeverExpires $true `
+            -Enabled $true `
+            -GivenName "Tomás" `
+            -Surname "Tapia" `
+            -MobilePhone 652145212 `
+            -HomePhone 987661514 `
+            -OfficePhone 654985896 `
+            -Office 15 `
+            -Description "industrial" `
+            -Title "Ingeniero mecánico" `
+            -City "Negreira" `
+            -Country "ES"
+
+
+# 4
+Add-ADGroupMember g-jefes -Members i.caceres,e.fuentes,o.marcos
+
+Add-ADgroupMember g-ceo -Members m.montes
+
+Add-ADGroupMember g-finanzas -Members i.caceres,c.vega
+
+Add-ADGroupMember g-comercial -Members e.fuentes,l.blanco,o.nigro
+
+Add-ADGroupMember g-produccion -Members o.marcos,a.barca,t.tapia
+
+
+
+
+
+# 5
+
+New-ADComputer -Name 'pc01' -Path 'ou=ou-finanzas,dc=dominio,dc=felipe'
+New-ADComputer -Name 'pc02' -Path 'ou=ou-finanzas,dc=dominio,dc=felipe'
+
+New-ADComputer -Name 'pc03' -Path 'ou=ou-comercial,dc=dominio,dc=felipe'
+New-ADComputer -Name 'pc04' -Path 'ou=ou-comercial,dc=dominio,dc=felipe'
+
+

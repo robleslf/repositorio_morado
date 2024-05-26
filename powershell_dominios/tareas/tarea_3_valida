@@ -1,0 +1,86 @@
+# 1. Listar todos las OU con sus ubicaciones
+Get-ADOrganizationalUnit -Filter * | Select-Object Name,DistinguishedName
+
+# 2. Listar los nombres de las OU que hay dentro del dpto.comercial
+Get-ADOrganizationalUnit -Filter * -SearchBase "ou=ou-comercial,dc=dominio,dc=felipe" | Select-Object Name
+
+# 3. Listar los DN de las OU que contengan un ‘r’ en su nombre
+Get-ADOrganizationalUnit -Filter {Name -like '*r*'} | Select-Object DistinguishedName
+
+#4. Listar los nombres que comiencen por ‘d’ de las OU
+Get-ADOrganizationalUnit -Filter {Name -like 'd*'} | Select-Object Name
+
+# 5. Buscar que OU (DN) no tiene establecida la ciudad
+New-ADOrganizationalUnit -Name ou-de-prueba-borrar -Path 'dc=dominio,dc=felipe' -Description "borrar no sirve" -ProtectedFromAccidentalDeletion $true -City "Negreira"
+
+
+
+Get-ADOrganizationalUnit -Filter {City -notlike  "*"} -Properties * |Select-Object Name,City
+
+
+# 6. ¿Están todas las OU protegidas por eliminación accidental?
+Get-ADOrganizationalUnit -Filter * -Properties * | Select-Object Name,ProtectedFromAccidentalDeletion
+
+
+# 7. ¿En qué fecha fue creada cada OU?
+Get-ADOrganizationalUnit -Filter * -Properties * | Select-Object Name,whenCreated
+
+# 8. ¿Cuántas OU hay creadas?
+(Get-ADOrganizationalUnit -Filter *).Count
+
+# 9. Listar todos los grupos con sus ubicaciones
+Get-ADGroup -Filter * | Select-Object Name,DistinguishedName
+
+# 10. ¿Cuántos grupos hay?
+(Get-ADGroup -Filter *).Count
+
+# 11. Listar todos los grupos del dominio
+Get-ADGroup -Server "dominio.felipe" -Filter *.Count
+Get-ADGroup -Filter * -SearchBase "dc=dominio,dc=felipe"
+
+# 12. Listar el DN de todos los usuarios del grupo “usuarios del dominio”
+Get-ADGroupMember -Identity "usuarios del dominio" | Select-Object Name,DistinguishedName
+
+# 13. Listar los nombres de los grupos a los que pertenece Omar Marcos
+Get-ADUser -Identity o.marcos -Properties * | Select-Object MemberOf
+
+
+
+# 14. Listar todos los atributos extendidos del g- comercial
+Get-ADGroup -Identity g-comercial -Properties * | Select-Object Members
+
+# 15. ¿Cuántos miembros tiene el g-comercial?
+(Get-ADGroupMember -Identity g-comercial).count
+
+# 16. Listar todos los grupos que estén protegidos contra eliminación accidental
+
+$grupos_a_modificar = Get-ADGroup -Filter {Name -like 'g-*'}
+
+foreach($i in $grupos_a_modificar) {
+    Set-ADObject -Identity ($i).distinguishedName -ProtectedFromAccidentalDeletion $true
+    }
+
+Get-ADGroup -Filter * -Properties * | ? ProtectedFromAccidentalDeletion -eq $true | Select-Object Name,ProtectedFromAccidentalDeletion
+
+
+# 17. ¿Cuántos grupos están dentro de builtin?
+$bulin = (Get-ADObject -Filter {Name -like "*builtin*"}).distinguishedName
+
+Get-ADGroup -SearchBase $bulin -Filter *
+
+
+# 18. ¿Cuántos grupos están dentro de la OU de grupos?
+$basedebusqueda = (Get-ADOrganizationalUnit -Filter {name -like 'ou-grupos-tarea'}).DistinguishedName 
+(Get-ADGroup -SearchBase $basedebusqueda -Filter *).count
+
+# 19. ¿En qué fecha fue creado cada uno de los grupos?
+Get-ADGroup -Filter * -Properties * | Select-Object whenCreated, Name
+
+# 20. ¿Qué cuentas son miembros del grupo g-produccion?
+Get-ADGroupMember -Identity g-produccion | Select-Object Name,SamAccountName
+
+# 21. ¿Qué cuentas son miembros del grupo administradores?
+Get-ADGroupMember -Identity administradores | Select-Object Name,SamAccountName
+
+# 22. ¿Qué grupos no están protegidas contra eliminación accidental.
+Get-ADGroup -Filter * -Properties * | ? ProtectedFromAccidentalDeletion -eq $false | Select-Object Name,ProtectedFromAccidentalDeletion

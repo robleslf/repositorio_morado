@@ -1,0 +1,125 @@
+# 1
+New-ADOrganizationalUnit -Name "ou-ventas" -Path "ou=ou-comercial,dc=dominio,dc=felipe" -Description "Ventas" `
+-ProtectedFromAccidentalDeletion $true
+
+New-ADOrganizationalUnit -Name "ou-importaciones" -Path "ou=ou-comercial,dc=dominio,dc=felipe" -Description "import." `
+-ProtectedFromAccidentalDeletion $true
+
+New-ADOrganizationalUnit -Name "ou-nacionales" -Path "ou=ou-comercial,dc=dominio,dc=felipe" -Description 'bueno' `
+-ProtectedFromAccidentalDeletion $true
+
+
+# 2
+Move-ADObject -Identity "CN=Omar Marcos,ou=ou-produccion,dc=dominio,dc=felipe" -TargetPath "OU=ou-ceo,dc=dominio,dc=felipe"
+
+Set-ADUser -Identity "CN=Omar Marcos,ou=ou-ceo,dc=dominio,dc=felipe" -Description "CEO" 
+
+Add-ADGroupMember -Identity g-ceo -Members o.marcos
+Add-ADGroupMember -Identity g-jefes -Members o.marcos
+Remove-ADGroupMember -Identity g-produccion -Members o.marcos
+
+# 3
+Disable-ADAccount m.montes -PassThru
+
+Remove-ADGroupMember g-ceo -Members m.montes
+Remove-ADGroupMember -Identity g-jefes -Members m.montes
+
+
+
+
+# 4
+Set-ADUser -Identity a.barca -Description "jefe"
+Add-ADGroupMember -Identity g-jefes -Members a.barca
+
+# 5
+$nuevachave= ConvertTo-SecureString "abc123." -AsPlainText -Force
+Set-ADAccountPassword -Identity l.blanco -Reset -NewPassword $nuevachave
+Set-ADUser -Identity l.blanco -PasswordNeverExpires $false -ChangePasswordAtLogon $true
+
+
+
+# 6
+Set-ADAccountExpiration -Identity c.vega -DateTime "2024-12-31" -PassThru
+
+Get-ADUser -Identity c.vega -Properties * | Select-Object AccountExpirationDate
+
+
+# 7
+Set-Location $HOME
+
+$usuarios = Import-Csv C:\Users\Administrador\altas.csv.txt
+
+$clave = ConvertTo-SecureString "abc123." -AsPlainText -Force
+
+$fecha_expiracion = (Get-Date).AddYears(1)
+
+
+
+foreach ($usuario in $usuarios) {
+    # Crea el nuevo usuario con los valores del CSV
+    New-ADUser -Name $usuario.nombre `
+               -SamAccountName $usuario.usuario `
+               -UserPrincipalName ($usuario.usuario + "@dominio.felipe") `
+               -AccountPassword $clave `
+               -Enabled $true `
+               -GivenName $usuario.nombre.Split(' ')[0] `
+               -Surname $usuario.nombre.Split(' ')[1] `
+               -MobilePhone $usuario.movil `
+               -Title $usuario.cargo `
+               -Path "OU=$($usuario.unidadOrganizativa),DC=dominio,DC=felipe" `
+               -AccountExpirationDate (Get-Date).AddYears(1) `
+                -ChangePasswordAtLogon $true
+
+    # Agrega el usuario al grupo correspondiente
+    Add-ADGroupMember -Identity $usuario.grupo -Members $usuario.usuario
+}
+
+
+foreach ($usuario in $usuarios) {
+    # Elimina el usuario
+    Remove-ADUser -Identity $usuario.usuario 
+}
+
+Get-ADUser -Filter * -Properties * | Select-Object Name,SamAccountName,AccountExpirationDate
+
+# 8
+Get-ADUser -Filter * -Properties * | Select-Object Name,ProtectedFromAccidentalDeletion
+
+# En mi caso no lo están porque no lo puse en el bucle, lo pongo ahora:
+
+foreach($usuario in $usuarios){
+    Get-ADUser -Identity $usuario.usuario  | Set-ADObject -ProtectedFromAccidentalDeletion ~true
+    }  
+
+    Get-ADUser -Identity m.salas | Set-ADObject -ProtectedFromAccidentalDeletion $true
+
+
+# 9
+New-ADOrganizationalUnit -Name "RRHH" -Path "ou=ou-ceo,dc=dominio,dc=felipe" -Description "Recursos Humanos" -ProtectedFromAccidentalDeletion $true
+
+
+
+#10
+Get-ADUser -Identity m.salas | Set-ADObject -ProtectedFromAccidentalDeletion $false
+
+Get-ADuser -Identity m.salas | Move-ADObject -TargetPath "ou=RRHH,ou=ou-ceo,dc=dominio,dc=felipe"
+
+Remove-ADGroupMember -Identity g-comercial -Members m.salas
+
+Add-ADGroupMember -Identity g-ceo -Members m.salas
+
+Set-ADUser -Identity m.salas -Description "Jefe de recursos humanos"
+
+Add-ADGroupMember -Identity g-jefes -Members m.salas
+
+
+Get-ADUser -Identity m.salas | Set-ADObject -ProtectedFromAccidentalDeletion $true
+
+
+
+
+# 11
+Get-ADUser -Identity m.montes | Set-ADObject -ProtectedFromAccidentalDeletion $false
+
+Remove-ADUser -Identity m.montes
+

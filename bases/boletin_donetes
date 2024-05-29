@@ -13,7 +13,9 @@ SELECT "negativo";
 ELSEIF vCodigo = 0 THEN
 SELECT "cero";
 
-ELSE SELECT "positivo";
+ELSE 
+	SELECT "positivo";
+    
 END IF;
 END;
 //
@@ -76,6 +78,35 @@ END;
 delimiter ;
 	
 CALL comparador;
+
+
+-- 4
+DROP PROCEDURE IF EXISTS elRepeat;
+
+delimiter //
+CREATE PROCEDURE elRepeat()
+BEGIN
+DECLARE numeroIntentos INT DEFAULT 0;
+DECLARE numeroNuestro INT;
+DECLARE numeroAleatorio INT;
+SET numeroNuestro = 14;
+repeat
+	BEGIN
+		SET numeroAleatorio = FLOOR(1 + RAND() * 99);
+		SET numeroIntentos = numeroIntentos + 1;
+	END;
+UNTIL numeroNuestro = numeroAleatorio
+END repeat;
+
+SELECT CONCAT("numeroIntentos: ", numeroIntentos);
+END;
+//
+delimiter ;
+
+CALL elRepeat();
+
+
+
 
 
 
